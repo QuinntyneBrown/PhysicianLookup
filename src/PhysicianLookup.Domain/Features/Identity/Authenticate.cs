@@ -1,8 +1,8 @@
-using PhysicianLookup.Core.Data;
 using BuildingBlocks.Core.Identity;
-using PhysicianLookup.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PhysicianLookup.Core.Data;
+using PhysicianLookup.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
