@@ -14,5 +14,9 @@
     <ProjectReference Include="..\PhysicianLookup.Domain\PhysicianLookup.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>

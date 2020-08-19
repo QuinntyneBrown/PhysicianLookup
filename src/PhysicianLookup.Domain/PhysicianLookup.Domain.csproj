@@ -5,8 +5,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Users\" />
     <Folder Include="Features\Physicians\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.1.0" />
   </ItemGroup>
 
   <PropertyGroup>
