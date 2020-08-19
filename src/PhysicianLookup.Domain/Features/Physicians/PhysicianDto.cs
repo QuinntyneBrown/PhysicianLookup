@@ -1,11 +1,9 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace PhysicianLookup.Core.Models
+namespace PhysicianLookup.Domain.Features.Physicians
 {
-    public class Physician
+    public class PhysicianDto
     {
-        [Key]
         public Guid PhysicianId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -19,5 +17,4 @@ namespace PhysicianLookup.Core.Models
         public double Longitude { get; set; }
         public double Latitude { get; set; }
     }
-
 }

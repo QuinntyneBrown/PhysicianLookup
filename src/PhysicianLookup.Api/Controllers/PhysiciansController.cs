@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 using PhysicianLookup.Domain.Features.Physicians;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhysicianLookup.Api.Controllers
 {    
+    [Authorize]
     [ApiController]
     [Route("api/physicians")]
     public class PhysiciansController
@@ -32,8 +34,18 @@ namespace PhysicianLookup.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetPhysicianById.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<GetPhysicianById.Response>> GetById([FromRoute]GetPhysicianById.Request request)
-            => await _mediator.Send(request);
+        {
+            var response = await _mediator.Send(request);
+
+            if (response.Physician == null)
+            {
+                return new NotFoundObjectResult(request.PhysicianId);
+            }
+
+            return response;
+        }
 
         [HttpGet(Name = "GetPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -42,18 +54,40 @@ namespace PhysicianLookup.Api.Controllers
         public async Task<ActionResult<GetPhysicians.Response>> Get()
             => await _mediator.Send(new GetPhysicians.Request());
 
+        [AllowAnonymous]
         [HttpGet(Name = "SearchPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(SearchPhysicians.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<SearchPhysicians.Response>> Search([FromRoute]SearchPhysicians.Request request)
-            => await _mediator.Send(request);
+        {
+            var response = await _mediator.Send(request);
 
+            if (response.Physicians.Count == 0)
+            {
+                return new NotFoundObjectResult(request.Query);
+            }
+
+            return response;
+        }
+
+        [AllowAnonymous]
         [HttpGet(Name = "GetClosetPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetClosetPhysicians.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetClosetPhysicians.Request), (int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<GetClosetPhysicians.Response>> GetCloset([FromRoute] GetClosetPhysicians.Request request)
-            => await _mediator.Send(request);
+        {
+            var response = await _mediator.Send(request);
+
+            if(response.Physicians.Count == 0)
+            {
+                return new NotFoundObjectResult(request);
+            }
+
+            return response;
+        }           
     }
 }

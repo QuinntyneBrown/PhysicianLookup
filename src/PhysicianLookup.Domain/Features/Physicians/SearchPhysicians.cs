@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using PhysicianLookup.Core.Data;
 using FluentValidation;
+using System.Collections.Generic;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
@@ -22,7 +23,7 @@ namespace PhysicianLookup.Domain.Features.Physicians
 
         public class Response
         {
-
+            public List<PhysicianDto> Physicians { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

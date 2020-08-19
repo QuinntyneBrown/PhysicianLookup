@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using PhysicianLookup.Core.Data;
 using FluentValidation;
+using System;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
@@ -16,13 +17,13 @@ namespace PhysicianLookup.Domain.Features.Physicians
             }
         }
 
-        public class Request : IRequest<Response> { 
-        
+        public class Request : IRequest<Response> {
+            public Guid PhysicianId { get; set; }
         }
 
         public class Response
         {
-
+            public PhysicianDto Physician { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -32,7 +33,9 @@ namespace PhysicianLookup.Domain.Features.Physicians
             public Handler(IPhysicianLookupDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { };
+			    return new Response() { 
+                    Physician = (await _context.Physicians.FindAsync(request.PhysicianId)).ToDto()
+                };
             }
         }
     }
