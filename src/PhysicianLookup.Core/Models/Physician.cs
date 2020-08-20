@@ -1,3 +1,4 @@
+using NetTopologySuite.Geometries;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,6 +19,7 @@ namespace PhysicianLookup.Core.Models
         public string Website { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public Point Location { get; set; }
     }
 
 }

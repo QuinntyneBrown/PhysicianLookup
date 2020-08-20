@@ -34,7 +34,16 @@ namespace PhysicianLookup.Domain.Features.Physicians
             public Handler(IPhysicianLookupDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { };
+			    // 1. Get all physicians by city
+                
+                // 2. Calculate distance
+
+                // 3. return closest 10
+
+
+                return new Response() { 
+                
+                };
             }
         }
     }
