@@ -1,17 +1,17 @@
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
-using PhysicianLookup.Core.Data;
 using FluentValidation;
-using System.Collections.Generic;
-using System.Linq;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
-using Microsoft.EntityFrameworkCore;
+using PhysicianLookup.Core.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
-    public class GetClosetPhysicians
+    public class GetClosestPhysicians
     {
         public class Validator : AbstractValidator<Request>
         {
@@ -22,13 +22,13 @@ namespace PhysicianLookup.Domain.Features.Physicians
         }
 
         public class Request : IRequest<Response> {
-            public int Latitude { get; set; }
-            public int Longitude { get; set; }
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
         }
 
         public class Response
         {
-            public List<PhysicianDto> Physicians { get; set; }
+            public List<ClosestPhysicianDto> Physicians { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -45,7 +45,8 @@ namespace PhysicianLookup.Domain.Features.Physicians
 
                 return new Response() { 
                     Physicians = await _context.Physicians.Where(x => x.Location.IsWithinDistance(location, 500))
-                    .Select(x => x.ToDto())
+                    .OrderBy(x => x.Location.Distance(location))
+                    .Select(x => x.ToClosestDto(location))
                     .ToListAsync()
                 };
             }
