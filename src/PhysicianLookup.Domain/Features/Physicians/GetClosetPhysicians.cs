@@ -4,6 +4,10 @@ using System.Threading;
 using PhysicianLookup.Core.Data;
 using FluentValidation;
 using System.Collections.Generic;
+using System.Linq;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
@@ -34,15 +38,15 @@ namespace PhysicianLookup.Domain.Features.Physicians
             public Handler(IPhysicianLookupDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    // 1. Get all physicians by city
+
+                var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
                 
-                // 2. Calculate distance
-
-                // 3. return closest 10
-
+                var location = geometryFactory.CreatePoint(new Coordinate(request.Longitude, request.Latitude));
 
                 return new Response() { 
-                
+                    Physicians = await _context.Physicians.Where(x => x.Location.IsWithinDistance(location, 500))
+                    .Select(x => x.ToDto())
+                    .ToListAsync()
                 };
             }
         }

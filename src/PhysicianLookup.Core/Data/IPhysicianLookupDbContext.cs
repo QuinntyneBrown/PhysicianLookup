@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PhysicianLookup.Core.Data
 {
@@ -7,5 +9,6 @@ namespace PhysicianLookup.Core.Data
     {
         DbSet<Physician> Physicians { get; }
         DbSet<User> Users { get; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
