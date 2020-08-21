@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PhysicianLookup.Api
+namespace BuildingBlocks.AspNetCore.Filters
 {
     public class AuthorizationHeaderParameterOperationFilter : IOperationFilter
     {

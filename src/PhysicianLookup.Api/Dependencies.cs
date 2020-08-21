@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Core.Identity;
+﻿using BuildingBlocks.AspNetCore.Filters;
+using BuildingBlocks.Core.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

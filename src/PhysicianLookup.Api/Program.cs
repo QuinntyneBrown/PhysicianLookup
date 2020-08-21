@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -47,6 +48,12 @@ namespace PhysicianLookup.Api
                 {
                     context.Database.EnsureCreated();
                     SeedData.Seed(context, configuration);
+                }
+
+                if (args.Contains("secret"))
+                {
+                    Console.WriteLine(SecretGenerator.Generate());
+                    Environment.Exit(0);
                 }
 
                 if (args.Contains("stop"))

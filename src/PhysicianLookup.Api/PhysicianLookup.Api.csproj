@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.AspNetCore\BuildingBlocks.AspNetCore.csproj" />
     <ProjectReference Include="..\PhysicianLookup.Domain\PhysicianLookup.Domain.csproj" />
   </ItemGroup>
 
