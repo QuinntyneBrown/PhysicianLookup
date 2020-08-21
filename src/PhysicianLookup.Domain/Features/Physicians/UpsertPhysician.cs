@@ -1,13 +1,12 @@
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
-using PhysicianLookup.Core.Data;
 using FluentValidation;
-using NetTopologySuite.Geometries;
+using MediatR;
 using NetTopologySuite;
-using Newtonsoft.Json.Serialization;
-using PhysicianLookup.Domain.Features.Geolocation;
+using NetTopologySuite.Geometries;
+using PhysicianLookup.Core.Data;
 using PhysicianLookup.Core.Models;
+using PhysicianLookup.Domain.Features.GeoLocation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
@@ -33,12 +32,12 @@ namespace PhysicianLookup.Domain.Features.Physicians
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IPhysicianLookupDbContext _context;
-            private readonly IMediator _mediator;
+            private readonly IGoogleMapsService _googleMapsService;
             
-            public Handler(IPhysicianLookupDbContext context, IMediator mediator)
+            public Handler(IPhysicianLookupDbContext context, IGoogleMapsService googleMapsService)
             {
                 _context = context;
-                _mediator = mediator;
+                _googleMapsService = googleMapsService;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
@@ -53,7 +52,7 @@ namespace PhysicianLookup.Domain.Features.Physicians
                     await _context.Physicians.AddAsync(physician);
                 }
 
-                var response = await _mediator.Send(new GetLongLatCoordinates.Request() { Address = $"{request.Physician.Street}, {request.Physician.City}, {request.Physician.Province}, {request.Physician.PostalCode}" });
+                var response = await _googleMapsService.GetCoordinates($"{request.Physician.Street}, {request.Physician.City}, {request.Physician.Province}, {request.Physician.PostalCode}");
 
                 physician.Firstname = request.Physician.Firstname;
                 physician.Firstname = request.Physician.Lastname;

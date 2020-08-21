@@ -1,7 +1,8 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Physician } from './physician';
+import { NearestPhysician } from './physician';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,14 @@ import { Physician } from './physician';
 export class PhysiciansService {
 
   constructor(
-    @Input('BASE_URL') private baseUrl: string,
+    @Inject('BASE_URL') private baseUrl: string,
     private client: HttpClient
     ) { }
 
-  public getNearest(options: { longitude: string, latitude: string}): Observable<Physician[]> {
-    return this.client.get<Physician[]>(`${this.baseUrl}/api/physicians/nearest/${options.longitude}/${options.latitude}`);
+  public getNearest(options: { longitude: number, latitude: number}): Observable<NearestPhysician[]> {
+    return this.client.get<{ physicians: NearestPhysician[] }>(`${this.baseUrl}/api/physicians/nearest/${options.longitude}/${options.latitude}`).pipe(
+      map(x => x.physicians)
+    );
 
   }
 }

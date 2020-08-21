@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PhysicianLookup.Domain.Features.Geolocation
+namespace PhysicianLookup.Domain.Features.GeoLocation
 {
     public class AddressComponent
     {
