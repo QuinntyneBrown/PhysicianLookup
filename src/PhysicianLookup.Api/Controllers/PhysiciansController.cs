@@ -76,9 +76,9 @@ namespace PhysicianLookup.Api.Controllers
         [HttpGet(Name = "GetClosetPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetClosestPhysicians.Response), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(GetClosestPhysicians.Request), (int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<GetClosestPhysicians.Response>> GetCloset([FromRoute] GetClosestPhysicians.Request request)
+        [ProducesResponseType(typeof(GetNearestPhysicians.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetNearestPhysicians.Request), (int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<GetNearestPhysicians.Response>> GetCloset([FromRoute] GetNearestPhysicians.Request request)
         {
             var response = await _mediator.Send(request);
 

@@ -10,13 +10,13 @@ using Xunit;
 
 namespace UnitTests.Domain.Features.Physicians
 {
-    public class GetClosestPhysiciansTests
+    public class GetNearestPhysiciansTests
     {
         [Fact]
         public async Task ShouldGetClosestPhysicians()
         {
             var options = new DbContextOptionsBuilder<PhysicianLookupDbContext>()
-                .UseInMemoryDatabase($"{nameof(GetClosestPhysiciansTests)}:{nameof(ShouldGetClosestPhysicians)}")
+                .UseInMemoryDatabase($"{nameof(GetNearestPhysiciansTests)}:{nameof(ShouldGetClosestPhysicians)}")
                 .Options;
 
             var context = new PhysicianLookupDbContext(options);
@@ -34,13 +34,13 @@ namespace UnitTests.Domain.Features.Physicians
 
             var client = new HttpClient();
 
-            GetClosestPhysicians.Request request = new GetClosestPhysicians.Request
+            GetNearestPhysicians.Request request = new GetNearestPhysicians.Request
             {
                 Latitude = 43.663790,
                 Longitude = -79.395380
             };
 
-            var handler = new GetClosestPhysicians.Handler(context);
+            var handler = new GetNearestPhysicians.Handler(context);
 
             var response = await handler.Handle(request, default);
 

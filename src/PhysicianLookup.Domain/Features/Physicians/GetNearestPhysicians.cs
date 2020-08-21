@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
-    public class GetClosestPhysicians
+    public class GetNearestPhysicians
     {
         public class Validator : AbstractValidator<Request>
         {
@@ -28,7 +28,7 @@ namespace PhysicianLookup.Domain.Features.Physicians
 
         public class Response
         {
-            public List<ClosestPhysicianDto> Physicians { get; set; }
+            public List<NearestPhysicianDto> Physicians { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -46,7 +46,10 @@ namespace PhysicianLookup.Domain.Features.Physicians
                 return new Response() { 
                     Physicians = await _context.Physicians.Where(x => x.Location.IsWithinDistance(location, 500))
                     .OrderBy(x => x.Location.Distance(location))
-                    .Select(x => x.ToClosestDto(location))
+                    .Select(x => new NearestPhysicianDto { 
+                        Physician = x.ToDto(),
+                        Distance = x.Location.ProjectTo(2855).Distance(location.ProjectTo(2855))
+                    })
                     .ToListAsync()
                 };
             }
