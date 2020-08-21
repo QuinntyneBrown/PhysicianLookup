@@ -40,18 +40,21 @@ namespace PhysicianLookup.Domain.Features.Physicians
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
                 var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-                
-                var location = geometryFactory.CreatePoint(new Coordinate(request.Longitude, request.Latitude));
 
-                return new Response() { 
+                var location = geometryFactory.CreatePoint(new Coordinate(request.Latitude, request.Longitude));
+
+                return new Response()
+                {
                     Physicians = await _context.Physicians.Where(x => x.Location.IsWithinDistance(location, 500))
                     .OrderBy(x => x.Location.Distance(location))
-                    .Select(x => new NearestPhysicianDto { 
+                    .Select(x => new NearestPhysicianDto
+                    {
                         Physician = x.ToDto(),
                         Distance = x.Location.ProjectTo(2855).Distance(location.ProjectTo(2855))
                     })
                     .ToListAsync()
                 };
+
             }
         }
     }

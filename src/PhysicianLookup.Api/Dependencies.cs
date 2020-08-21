@@ -103,7 +103,9 @@ namespace PhysicianLookup.Api
                 options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"], 
                     b => b.MigrationsAssembly("PhysicianLookup.Api")
                         .UseNetTopologySuite()
-                        .EnableRetryOnFailure());
+                        .EnableRetryOnFailure())
+                .UseLoggerFactory(PhysicianLookupDbContext.ConsoleLoggerFactory)
+                .EnableSensitiveDataLogging();
             });
 
             services.AddControllers();

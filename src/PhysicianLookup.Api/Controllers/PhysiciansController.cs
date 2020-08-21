@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace PhysicianLookup.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/physicians")]
     public class PhysiciansController
@@ -16,20 +15,23 @@ namespace PhysicianLookup.Api.Controllers
 
         public PhysiciansController(IMediator mediator) => _mediator = mediator;
 
+        [Authorize]
         [HttpPut(Name = "UpsertPhysicianRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpsertPhysician.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<UpsertPhysician.Response>> Upsert([FromBody]UpsertPhysician.Request request)
             => await _mediator.Send(request);
-        
+
+        [Authorize]
         [HttpDelete("{physicianId}", Name = "RemovePhysicianRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task Remove([FromRoute]RemovePhysician.Request request)
-            => await _mediator.Send(request);            
+            => await _mediator.Send(request);
 
+        [Authorize]
         [HttpGet("{physicianId}", Name = "GetPhysicianByIdRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -47,6 +49,7 @@ namespace PhysicianLookup.Api.Controllers
             return response;
         }
 
+        [Authorize]
         [HttpGet(Name = "GetPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

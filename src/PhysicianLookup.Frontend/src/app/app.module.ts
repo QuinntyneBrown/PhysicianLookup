@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [{
     provide: 'BASE_URL',
-    useValue: 'https://localhost:5001/'
+    useValue: 'https://localhost:44353'
   }],
   bootstrap: [AppComponent]
 })

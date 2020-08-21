@@ -11,7 +11,7 @@ using PhysicianLookup.Core.Data;
 namespace PhysicianLookup.Api.Migrations
 {
     [DbContext(typeof(PhysicianLookupDbContext))]
-    [Migration("20200820001819_InitialCreate")]
+    [Migration("20200821185843_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
