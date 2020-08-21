@@ -21,6 +21,8 @@ namespace PhysicianLookup.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
             app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
@@ -32,6 +34,12 @@ namespace PhysicianLookup.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Physician Lookup Api");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

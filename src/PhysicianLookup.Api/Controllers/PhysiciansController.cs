@@ -1,12 +1,12 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PhysicianLookup.Domain.Features.Physicians;
 using System.Net;
 using System.Threading.Tasks;
-using PhysicianLookup.Domain.Features.Physicians;
-using Microsoft.AspNetCore.Authorization;
 
 namespace PhysicianLookup.Api.Controllers
-{    
+{
     [Authorize]
     [ApiController]
     [Route("api/physicians")]
@@ -55,7 +55,7 @@ namespace PhysicianLookup.Api.Controllers
             => await _mediator.Send(new GetPhysicians.Request());
 
         [AllowAnonymous]
-        [HttpGet(Name = "SearchPhysiciansRoute")]
+        [HttpGet("search/{query}", Name = "SearchPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(SearchPhysicians.Response), (int)HttpStatusCode.OK)]
