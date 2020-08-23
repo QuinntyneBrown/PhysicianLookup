@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "physician-lookup": {
+    "pl": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,12 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "pl",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/physician-lookup",
+            "outputPath": "dist/pl",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "physician-lookup:build"
+            "browserTarget": "pl:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "physician-lookup:build:production"
+              "browserTarget": "pl:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "physician-lookup:build"
+            "browserTarget": "pl:build"
           }
         },
         "test": {
@@ -114,19 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "physician-lookup:serve"
+            "devServerTarget": "pl:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "physician-lookup:serve:production"
+              "devServerTarget": "pl:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "physician-lookup",
-  "cli": {
-    "analytics": "eb602d34-30c8-4242-a527-c3d6cbd1d40d"
-  }
+    }},
+  "defaultProject": "pl"
 }
