@@ -100,8 +100,8 @@ namespace PhysicianLookup.Api
 
             services.AddDbContext<PhysicianLookupDbContext>(options =>
             {
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"], 
-                    b => b.MigrationsAssembly("PhysicianLookup.Api")
+                options.UseNpgsql(configuration["Data:DefaultConnection:ConnectionString"],
+                    builder => builder.MigrationsAssembly("PhysicianLookup.Api")
                         .UseNetTopologySuite()
                         .EnableRetryOnFailure())
                 .UseLoggerFactory(PhysicianLookupDbContext.ConsoleLoggerFactory)

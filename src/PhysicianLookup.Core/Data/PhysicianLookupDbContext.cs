@@ -14,5 +14,10 @@ namespace PhysicianLookup.Core.Data
 
         public DbSet<Physician> Physicians { get; private set; }
         public DbSet<User> Users { get; private set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.HasPostgresExtension("postgis");
+        }
     }
 }
