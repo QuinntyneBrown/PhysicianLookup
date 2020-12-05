@@ -16,7 +16,7 @@ namespace PhysicianLookup.Api.Controllers
         public PhysiciansController(IMediator mediator) => _mediator = mediator;
 
         [Authorize]
-        [HttpPut(Name = "UpsertPhysicianRoute")]
+        [HttpPost(Name = "UpsertPhysicianRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpsertPhysician.Response), (int)HttpStatusCode.OK)]
@@ -76,12 +76,12 @@ namespace PhysicianLookup.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("nearest/{latitude}/{longitude}", Name = "GetNearestPhysiciansRoute")]
+        [HttpGet("nearby/{longitude}/{latitude}", Name = "GetNearByPhysiciansRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetNearestPhysicians.Response), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(GetNearestPhysicians.Request), (int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<GetNearestPhysicians.Response>> GetNearest([FromRoute] GetNearestPhysicians.Request request)
+        [ProducesResponseType(typeof(GetNearByPhysicians.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetNearByPhysicians.Request), (int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<GetNearByPhysicians.Response>> GetNearBy([FromRoute] GetNearByPhysicians.Request request)
         {
             var response = await _mediator.Send(request);
 

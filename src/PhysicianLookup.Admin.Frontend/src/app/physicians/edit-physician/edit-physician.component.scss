@@ -1,0 +1,24 @@
+@import '../../../assets/base/variables';
+@import '../../../assets/base/placeholders';
+
+h1 {
+    @extend %page-heading;
+}
+
+mat-form-field {
+    display: block;
+    max-width: 500px;
+}
+
+form {
+    display: block;
+    margin: 0;
+    padding: 0px 0px 25px $page-gutter-left;
+}
+
+.physicianEditor__actions {
+    display: flex;
+    padding: 0px 0px 30px $page-gutter-left;
+    gap: 15px
+    
+}

@@ -1,0 +1,14 @@
+<h1 *ngIf="!user.userId">Create User</h1>
+
+<h1 *ngIf="user.userId">Edit User</h1>
+
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Username" id="username" formControlName="username">
+  </mat-form-field>
+</form>
+
+<div class="userEditor__actions">
+  <button mat-raised-button (click)="handleSaveClick()" color="primary">Save</button>
+  <button mat-button (click)="handleCancelClick()">Cancel</button>
+</div>

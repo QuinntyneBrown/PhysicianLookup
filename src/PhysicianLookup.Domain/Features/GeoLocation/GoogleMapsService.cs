@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Core.Extensions;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -7,19 +8,23 @@ namespace PhysicianLookup.Domain.Features.GeoLocation
     public class GoogleMapsService: IGoogleMapsService
     {
         private readonly HttpClient _client;
-        public GoogleMapsService(HttpClient client)
+        private readonly IConfiguration _configuration;
+        public GoogleMapsService(HttpClient client, IConfiguration configuration)
         {
             _client = client;
+            _configuration = configuration;
         }
 
         public async Task<GoogleEncodeResponse> GetAddress(double latitude, double longitude)
         {
-            return await _client.GetAsync<GoogleEncodeResponse>($"http://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&sensor=false");
+            var url = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&sensor=false&key={_configuration["GoogleMapsPlatform:ApiKey"]}";
+            return await _client.GetAsync<GoogleEncodeResponse>(url);
         }
 
         public async Task<GoogleEncodeResponse> GetCoordinates(string address)
         {
-            return await _client.GetAsync<GoogleEncodeResponse>($"http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false");
+            var url = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false&key={_configuration["GoogleMapsPlatform:ApiKey"]}";
+            return await _client.GetAsync<GoogleEncodeResponse>(url);
         }
     }
 }

@@ -1,0 +1,15 @@
+export type Physician = {    
+    physicianId: string,
+    title: string,
+    firstname: string,
+    lastname: string,
+    street: string,
+    city: string,
+    province: string,
+    postalCode: string,
+    phoneNumber: string,
+    emailAddress: string,
+    website: string,
+    longitude: number,
+    latitude: number,    
+};

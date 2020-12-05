@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 
@@ -19,7 +20,10 @@ namespace PhysicianLookup.Core.Models
         public Guid UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string RefreshToken { get; set; }
         public byte[] Salt { get; private set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+        = new HashSet<UserRole>();
 
     }
 

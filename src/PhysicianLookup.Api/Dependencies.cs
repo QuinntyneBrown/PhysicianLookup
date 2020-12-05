@@ -52,9 +52,10 @@ namespace PhysicianLookup.Api
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder => builder
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins(configuration["AllowedOrigins"])
                 .AllowAnyMethod()
                 .AllowAnyHeader()
+                .WithExposedHeaders("Token-Expired")
                 .SetIsOriginAllowed(isOriginAllowed: _ => true)
                 .AllowCredentials()));
 
@@ -64,7 +65,7 @@ namespace PhysicianLookup.Api
 
             services.AddSingleton<ITokenProvider, TokenProvider>();
 
-            services.AddMediatR(typeof(GetNearestPhysicians));
+            services.AddMediatR(typeof(GetNearByPhysicians));
 
             services.AddTransient<IPhysicianLookupDbContext, PhysicianLookupDbContext>();
 
@@ -94,13 +95,23 @@ namespace PhysicianLookup.Api
                             if (!string.IsNullOrEmpty(token)) context.Token = token;
 
                             return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            }
+                            return Task.CompletedTask;
                         }
                     };
                 });
 
+            services.AddHttpContextAccessor();
+
             services.AddDbContext<PhysicianLookupDbContext>(options =>
             {
-                options.UseNpgsql(configuration["Data:DefaultConnection:ConnectionString"],
+                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"],
                     builder => builder.MigrationsAssembly("PhysicianLookup.Api")
                         .UseNetTopologySuite()
                         .EnableRetryOnFailure())

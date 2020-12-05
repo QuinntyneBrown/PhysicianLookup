@@ -1,0 +1,12 @@
+{
+    "UNSUPPORT_BROWSER": {
+        "TITLE": "Navigateur Non Supporté",
+        "TEXT_1": "Nous avons détecté que vous utilisez un navigateur non supporté.",
+        "TEXT_2": "Certaines parties du site pourraient ne pas s'afficher ou fonctionner correctement.",
+        "RESULT": "Pour des résultats optimaux,",
+        "RESULT_1": "Pour copier l'URL, et coller dans Chrome, Safari ou Firefox.",
+        "CLICK": "cliquez içi",
+        "CLOSE": "Fermer",
+        "ACCEPT":"Accepter"
+      }
+}

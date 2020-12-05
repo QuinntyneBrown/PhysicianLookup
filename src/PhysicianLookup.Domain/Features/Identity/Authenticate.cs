@@ -22,6 +22,7 @@ namespace PhysicianLookup.Domain.Features.Identity
         public class Response
         {
             public string AccessToken { get; set; }
+            public string RefreshToken { get; set; }
             public Guid UserId { get; set; }
         }
 
@@ -49,10 +50,15 @@ namespace PhysicianLookup.Domain.Features.Identity
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                     throw new Exception();
 
+                user.RefreshToken = _tokenProvider.GenerateRefreshToken();
+
+                await _context.SaveChangesAsync(cancellationToken);
+
                 return new Response()
                 {
                     AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { }),
-                    UserId = user.UserId
+                    UserId = user.UserId,
+                    RefreshToken = user.RefreshToken
                 };
             }
 

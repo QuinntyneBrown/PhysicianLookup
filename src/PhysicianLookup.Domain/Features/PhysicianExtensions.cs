@@ -10,17 +10,18 @@ namespace PhysicianLookup.Domain.Features
             return new PhysicianDto
             {
                 PhysicianId = physician.PhysicianId,
+                Title = physician.Title,
                 Firstname = physician.Firstname,
                 Lastname = physician.Lastname,
-                Street = physician.Street,
-                City = physician.City,
-                Province = physician.Province,
-                PostalCode = physician.PostalCode,
+                Street = physician.Address.Street,
+                City = physician.Address.City,
+                Province = physician.Address.Province,
+                PostalCode = physician.Address.PostalCode,
                 EmailAddress = physician.EmailAddress,
                 Website = physician.Website,
                 PhoneNumber = physician.PhoneNumber,
-                Longitude = physician.Longitude,
-                Latitude = physician.Latitude
+                Longitude = physician.Address.Longitude,
+                Latitude = physician.Address.Latitude
             };
         }
     }

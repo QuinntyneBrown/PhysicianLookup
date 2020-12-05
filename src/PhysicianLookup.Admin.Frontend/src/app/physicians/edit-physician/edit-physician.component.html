@@ -1,0 +1,51 @@
+<h1 *ngIf="!physician.physicianId">Create Physician</h1>
+
+<h1 *ngIf="physician.physicianId">Edit Physician</h1>
+
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Title" id="title" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Firstname" id="firstname" formControlName="firstname">
+  </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Lastname" id="lastname" formControlName="lastname">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Street" id="street" formControlName="street">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="City" id="city" formControlName="city">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Province" id="province" formControlName="province">
+      </mat-form-field>      
+
+      <mat-form-field>
+        <input matInput placeholder="Postal Code" id="postalCode" formControlName="postalCode">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Phone Number" id="phoneNumber" formControlName="phoneNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Email Address" id="emailAddress" formControlName="emailAddress">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Website" id="website" formControlName="website">
+      </mat-form-field>
+
+</form>
+
+<div class="physicianEditor__actions">
+  <button mat-raised-button (click)="handleSaveClick()" color="primary">Save</button>
+  <button mat-button (click)="handleCancelClick()">Cancel</button>
+</div>

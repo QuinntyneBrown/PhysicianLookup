@@ -23,10 +23,10 @@ namespace UnitTests.Domain.Features.Physicians
 
             var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
-            var physician = new Physician
-            {
-                Location = geometryFactory.CreatePoint(new Coordinate(-79.374770, 43.631460))
-            };
+            var physician = new Physician();
+            //{
+            //    Location = geometryFactory.CreatePoint(new Coordinate(-79.374770, 43.631460))
+            //};
 
             context.Physicians.Add(physician);
 
@@ -34,13 +34,13 @@ namespace UnitTests.Domain.Features.Physicians
 
             var client = new HttpClient();
 
-            GetNearestPhysicians.Request request = new GetNearestPhysicians.Request
+            GetNearByPhysicians.Request request = new GetNearByPhysicians.Request
             {
                 Latitude = 43.663790,
                 Longitude = -79.395380
             };
 
-            var handler = new GetNearestPhysicians.Handler(context);
+            var handler = new GetNearByPhysicians.Handler(context);
 
             var response = await handler.Handle(request, default);
 

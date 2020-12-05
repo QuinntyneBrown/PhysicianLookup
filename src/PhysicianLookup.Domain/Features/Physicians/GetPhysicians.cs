@@ -1,28 +1,20 @@
 using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
+using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
-using FluentValidation;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
     public class GetPhysicians
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-
-            }
-        }
-
-        public class Request : IRequest<Response> { 
-        
-        }
+        public class Request : IRequest<Response> {  }
 
         public class Response
         {
-
+            public List<PhysicianDto> Physicians { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -32,7 +24,9 @@ namespace PhysicianLookup.Domain.Features.Physicians
             public Handler(IPhysicianLookupDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { };
+			    return new Response() { 
+                    Physicians = await _context.Physicians.Select(x => x.ToDto()).ToListAsync()
+                };
             }
         }
     }

@@ -1,0 +1,12 @@
+{
+    "UNSUPPORT_BROWSER": {
+        "TITLE": "Unsupported Browser",
+        "TEXT_1": "We’ve detected that you’re using an unsupported browser.",
+        "TEXT_2": "Certain parts of the site may not appear or function correctly.",
+        "RESULT": "For best results,",
+        "RESULT_1": "to copy the URL, and paste it into Chrome, Safari or Firefox.",
+        "CLICK": "click here",
+        "CLOSE": "Close",
+        "ACCEPT": "Accept"
+      }
+}

@@ -2,37 +2,26 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using PhysicianLookup.Core.Data;
-using FluentValidation;
 
 namespace PhysicianLookup.Domain.Features.Physicians
 {
     public class RemovePhysician
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-
-            }
+        public class Request : IRequest<Unit> {
+            public PhysicianDto Physician { get; set; }
         }
 
-        public class Request : IRequest<Response> { 
-        
-        }
-
-        public class Response
-        {
-
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Unit>
         {
             private readonly IPhysicianLookupDbContext _context;
 
             public Handler(IPhysicianLookupDbContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-			    return new Response() { };
+            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken) {
+                var physician = await _context.Physicians.FindAsync(request.Physician.PhysicianId);
+                _context.Physicians.Remove(physician);
+                await _context.SaveChangesAsync(cancellationToken);
+			    return new Unit() { };
             }
         }
     }
