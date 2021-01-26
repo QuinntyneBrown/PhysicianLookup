@@ -1,0 +1,42 @@
+<form novalidate autocomplete='off' spellcheck='false' [formGroup]='form'>
+
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput placeholder='Title'
+        formControlName='title' required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput placeholder='Firstname'
+        formControlName='firstname' required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput placeholder='Lastname'
+        formControlName='lastname' required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder='Phone Number'
+        formControlName='phoneNumber' required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder='Email'
+        formControlName='email' required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Website</mat-label>
+        <input matInput placeholder='Website'
+        formControlName='website' required>
+    </mat-form-field>  
+
+    <app-address-editor formControlName='address'></app-physician-editor>
+</form>
+
+

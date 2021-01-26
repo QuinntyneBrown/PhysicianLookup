@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HeaderComponent } from './header/header.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { EntityActionsComponent } from './entity-actions/entity-actions.component';
 
 @NgModule({
   imports: [    
@@ -42,6 +43,6 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
     HeaderComponent,
     AdminHeaderComponent
   ],
-  declarations: [HeaderComponent, AdminHeaderComponent]
+  declarations: [HeaderComponent, AdminHeaderComponent, EntityActionsComponent]
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { baseUrl } from '../_core/constants';
+import { baseUrl } from '@core/constants';
 import { HttpClient } from '@angular/common/http';
 import { Role } from './role';
 import { Observable } from 'rxjs';

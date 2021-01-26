@@ -1,0 +1,7 @@
+<h1 *ngIf="!physician.physicianId">Create Physician</h1>
+
+<h1 *ngIf="physician.physicianId">Edit Physician</h1>
+
+<app-physician-editor [formControl]='physicianControl'></app-physician-editor>
+
+<app-entity-actions></app-entity-actions>
