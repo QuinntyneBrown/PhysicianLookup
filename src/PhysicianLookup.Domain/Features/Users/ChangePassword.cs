@@ -1,13 +1,10 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.Users
+namespace PhysicianLookup.Domain.Features
 {
     public class ChangePassword
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using PhysicianLookup.Core.Data;
 
-namespace PhysicianLookup.Domain.Features.Physicians
+namespace PhysicianLookup.Domain.Features
 {
     public class RemovePhysician
     {

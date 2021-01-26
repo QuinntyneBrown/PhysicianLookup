@@ -1,5 +1,5 @@
 using PhysicianLookup.Core.Models;
-using PhysicianLookup.Domain.Features.Roles;
+using PhysicianLookup.Domain.Features;
 
 namespace PhysicianLookup.Domain.Features
 {

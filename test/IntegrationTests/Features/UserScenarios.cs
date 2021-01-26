@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PhysicianLookup.Domain.Features.Identity;
+using PhysicianLookup.Domain.Features;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.Roles
+namespace PhysicianLookup.Domain.Features
 {
     public class GetRoles
     {

@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.Identity
+namespace PhysicianLookup.Domain.Features
 {
     public class Authenticate
     {

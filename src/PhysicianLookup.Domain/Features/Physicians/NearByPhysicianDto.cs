@@ -1,4 +1,4 @@
-﻿namespace PhysicianLookup.Domain.Features.Physicians
+﻿namespace PhysicianLookup.Domain.Features
 {
     public class NearByPhysicianDto
     {

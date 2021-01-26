@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.GeoLocation
+namespace PhysicianLookup.Domain.Features
 {
     public interface IGoogleMapsService
     {

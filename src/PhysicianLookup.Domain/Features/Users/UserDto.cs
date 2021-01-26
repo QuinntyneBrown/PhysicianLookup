@@ -1,6 +1,6 @@
 using System;
 
-namespace PhysicianLookup.Domain.Features.Users
+namespace PhysicianLookup.Domain.Features
 {
     public class UserDto
     {

@@ -6,7 +6,7 @@ using PhysicianLookup.Core.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.Identity
+namespace PhysicianLookup.Domain.Features
 {
     public class Refresh
     {

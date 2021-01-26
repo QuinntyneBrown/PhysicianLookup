@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.GeoLocation
+namespace PhysicianLookup.Domain.Features
 {
     public class GoogleMapsService: IGoogleMapsService
     {

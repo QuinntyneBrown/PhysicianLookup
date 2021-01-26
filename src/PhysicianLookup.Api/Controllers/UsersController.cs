@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PhysicianLookup.Domain.Features.Identity;
-using PhysicianLookup.Domain.Features.Users;
+using PhysicianLookup.Domain.Features;
+using PhysicianLookup.Domain.Features;
 using System.Net;
 using System.Threading.Tasks;
 

@@ -4,11 +4,11 @@ using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using PhysicianLookup.Core.Data;
 using PhysicianLookup.Core.Models;
-using PhysicianLookup.Domain.Features.GeoLocation;
+using PhysicianLookup.Domain.Features;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhysicianLookup.Domain.Features.Physicians
+namespace PhysicianLookup.Domain.Features
 {
     public class UpsertPhysician
     {
@@ -51,7 +51,8 @@ namespace PhysicianLookup.Domain.Features.Physicians
                     physician = new Physician();
                     await _context.Physicians.AddAsync(physician);
                 }
-                var address = $"{request.Physician.Street}, {request.Physician.City}, {request.Physician.Province}, {request.Physician.PostalCode}";
+
+                var address = $"{request.Physician.Address.Street}, {request.Physician.Address.City}, {request.Physician.Address.Province}, {request.Physician.Address.PostalCode}";
 
                 var response = await _googleMapsService.GetCoordinates(address);
 
@@ -62,10 +63,10 @@ namespace PhysicianLookup.Domain.Features.Physicians
                 physician.EmailAddress = request.Physician.EmailAddress;
                 physician.Website = request.Physician.Website;
                 physician.Address = new Address(
-                    request.Physician.Street,
-                    request.Physician.City,
-                    request.Physician.Province,
-                    request.Physician.PostalCode,
+                    request.Physician.Address.Street,
+                    request.Physician.Address.City,
+                    request.Physician.Address.Province,
+                    request.Physician.Address.PostalCode,
                     response.Latitude,
                     response.Longitude,
                     geometryFactory.CreatePoint(new Coordinate(response.Latitude, response.Longitude)));

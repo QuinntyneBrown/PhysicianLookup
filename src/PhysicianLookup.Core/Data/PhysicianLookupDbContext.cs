@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PhysicianLookup.Core.Models;
-using System.Security.Cryptography.X509Certificates;
 
 namespace PhysicianLookup.Core.Data
 {

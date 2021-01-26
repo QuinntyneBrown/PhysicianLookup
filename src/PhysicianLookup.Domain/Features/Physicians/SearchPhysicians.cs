@@ -5,7 +5,7 @@ using PhysicianLookup.Core.Data;
 using FluentValidation;
 using System.Collections.Generic;
 
-namespace PhysicianLookup.Domain.Features.Physicians
+namespace PhysicianLookup.Domain.Features
 {
     public class SearchPhysicians
     {

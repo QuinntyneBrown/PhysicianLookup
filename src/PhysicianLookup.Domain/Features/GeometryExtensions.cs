@@ -14,13 +14,13 @@ namespace PhysicianLookup.Domain.Features
                 new CoordinateTransformationFactory(),
                 new Dictionary<int, string>
                 {
-                // Coordinate systems:
+                    // Coordinate systems:
 
-                [4326] = GeographicCoordinateSystem.WGS84.WKT,
+                    [4326] = GeographicCoordinateSystem.WGS84.WKT,
 
-                // This coordinate system covers the area of our data.
-                // Different data requires a different coordinate system.
-                [2855] =
+                    // This coordinate system covers the area of our data.
+                    // Different data requires a different coordinate system.
+                    [2855] =
                     @"
                     PROJCS[""NAD83(HARN) / Washington North"",
                         GEOGCS[""NAD83(HARN)"",
@@ -46,7 +46,7 @@ namespace PhysicianLookup.Domain.Features
                 "
                 });
 
-        public static Geometry ProjectTo(this Geometry geometry, int srid)
+        public static NetTopologySuite.Geometries.Geometry ProjectTo(this NetTopologySuite.Geometries.Geometry geometry, int srid)
         {
             var transformation = _coordinateSystemServices.CreateTransformation(geometry.SRID, srid);
 

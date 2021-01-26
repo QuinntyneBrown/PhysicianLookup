@@ -3,7 +3,7 @@ using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using PhysicianLookup.Core.Data;
 using PhysicianLookup.Core.Models;
-using PhysicianLookup.Domain.Features.Physicians;
+using PhysicianLookup.Domain.Features;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
