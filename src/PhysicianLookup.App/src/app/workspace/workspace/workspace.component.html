@@ -1,3 +1,17 @@
-<app-admin-header></app-admin-header>
+<app-admin-header (menuClick)="drawer.open()"></app-admin-header>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #drawer mode="side" (click)="drawer.close()">
+        <button mat-button routerLink="/workspace/physicians">Physicians</button>
+        <button mat-button routerLink="/workspace/roles">Roles</button>
+        <button mat-button routerLink="/workspace/users">Users</button>
+        <button mat-button routerLink="/login">Log out</button>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      
+      <div class="router-outlet-container">
+        <router-outlet #router></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

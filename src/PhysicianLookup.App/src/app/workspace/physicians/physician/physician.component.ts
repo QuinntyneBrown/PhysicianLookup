@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Physician } from '../physician';
 
 @Component({
   selector: 'app-physician',
@@ -7,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhysicianComponent implements OnInit {
 
+  public physicianControl: FormControl = new FormControl();
+  
+  public physician: Physician = {} as Physician;
   constructor() { }
 
   ngOnInit(): void {

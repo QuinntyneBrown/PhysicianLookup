@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { usernameKey } from '@core';
+import { LocalStorageService } from '@core/local-storage.service';
 
 @Component({
   selector: 'app-public',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicComponent implements OnInit {
 
-  constructor() { }
+  public get username() { return this._localStorageService.get({ name: usernameKey }); }
+
+  constructor(
+    private _localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
   }

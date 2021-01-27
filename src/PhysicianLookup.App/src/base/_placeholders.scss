@@ -1,0 +1,19 @@
+%list-page {   
+  > div {
+    max-width: 1200px;
+    margin: 0 auto;
+  } 
+  
+  button {
+    margin: 15px 0px 15px 25px;    
+  }
+  
+  table {
+    margin: 0px 0px 0px 25px;
+    width: calc(100% - 60px )
+  }
+}
+
+%overlay {   
+
+}

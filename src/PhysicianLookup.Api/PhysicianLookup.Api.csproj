@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="codeGeneratorSettings.json" />
+    <Content Remove="cliSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="codeGeneratorSettings.json" />
+    <None Include="cliSettings.json" />
   </ItemGroup>
 
 

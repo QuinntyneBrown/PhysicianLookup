@@ -1,5 +1,15 @@
-h1 {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+:host {
+    display: block;
+    background-color: #3f51b5;
+    mat-toolbar {
+        display: grid;
+        grid-template-columns: 1fr min-content;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    a {
+        cursor: pointer;
+    }
 }

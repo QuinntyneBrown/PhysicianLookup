@@ -8,17 +8,12 @@ namespace PhysicianLookup.Domain.Features
 {
     public class ChangePassword
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Unit> {
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
 
-        public class Response
-        {
-
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Unit>
         {
             private readonly IPhysicianLookupDbContext _context;
 
@@ -26,7 +21,7 @@ namespace PhysicianLookup.Domain.Features
                 _context = context;            
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken) {
 			    throw new Exception();
             }
         }

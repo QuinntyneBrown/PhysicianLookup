@@ -41,7 +41,8 @@ import { EntityActionsComponent } from './entity-actions/entity-actions.componen
     MatTableModule,
     MatSnackBarModule,
     HeaderComponent,
-    AdminHeaderComponent
+    AdminHeaderComponent,
+    EntityActionsComponent
   ],
   declarations: [HeaderComponent, AdminHeaderComponent, EntityActionsComponent]
 })

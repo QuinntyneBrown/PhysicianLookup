@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 import { AuthService } from '@core/auth.service';
 import { RedirectService } from '@core/redirect.service';
 
@@ -16,7 +15,6 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private redirectService: RedirectService
   ) { }
 

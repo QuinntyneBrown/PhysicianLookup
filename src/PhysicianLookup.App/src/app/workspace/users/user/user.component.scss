@@ -1,0 +1,5 @@
+@import 'src/base/placeholders';
+
+:host {
+    @extend %overlay;
+}
