@@ -1,6 +1,6 @@
-@import '../../../assets/base/variables';
-@import '../../../assets/base/placeholders';
-@import '../../../assets/framework/breakpoints';
+@import 'src/scss/base/variables';
+@import 'src/scss/base/placeholders';
+@import 'src/scss/framework/breakpoints';
 
 :host {
     display: grid;
