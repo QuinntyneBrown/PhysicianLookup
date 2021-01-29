@@ -36,7 +36,7 @@ export class PhysicianEditorComponent implements ControlValueAccessor,  Validato
     firstname: new FormControl(null, []),
     lastname: new FormControl(null, []),
     phoneNumber: new FormControl(null, []),
-    emailAddress: new FormControl(null, []),
+    email: new FormControl(null, []),
     website: new FormControl(null, []),
     address: new FormControl(null,[])
   });

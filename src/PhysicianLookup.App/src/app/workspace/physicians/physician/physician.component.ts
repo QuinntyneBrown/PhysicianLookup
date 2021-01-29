@@ -1,3 +1,4 @@
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Physician } from '../physician';
@@ -7,14 +8,17 @@ import { Physician } from '../physician';
   templateUrl: './physician.component.html',
   styleUrls: ['./physician.component.scss']
 })
-export class PhysicianComponent implements OnInit {
+export class PhysicianComponent {
 
-  public physicianControl: FormControl = new FormControl();
-  
   public physician: Physician = {} as Physician;
-  constructor() { }
 
-  ngOnInit(): void {
+  public formControl: FormControl = new FormControl(this.physician);
+  
+  constructor(private readonly _overlayRef: OverlayRef) {
+
   }
+  
+  public save() {
 
+  }
 }
