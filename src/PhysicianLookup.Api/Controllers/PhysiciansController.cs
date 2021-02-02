@@ -16,11 +16,19 @@ namespace PhysicianLookup.Api.Controllers
         public PhysiciansController(IMediator mediator) => _mediator = mediator;
 
         [Authorize]
-        [HttpPost(Name = "UpsertPhysicianRoute")]
+        [HttpPost(Name = "CreatePhysicianRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpsertPhysician.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpsertPhysician.Response>> Upsert([FromBody]UpsertPhysician.Request request)
+        [ProducesResponseType(typeof(CreatePhysician.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreatePhysician.Response>> Create([FromBody]CreatePhysician.Request request)
+            => await _mediator.Send(request);
+
+        [Authorize]
+        [HttpPut(Name = "UpdatePhysicianRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdatePhysician.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdatePhysician.Response>> Update([FromBody] UpdatePhysician.Request request)
             => await _mediator.Send(request);
 
         [Authorize]

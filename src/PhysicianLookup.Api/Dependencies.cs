@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.AspNetCore.Filters;
+﻿using BuildingBlocks.AspNetCore.Extensions;
+using BuildingBlocks.AspNetCore.Filters;
 using BuildingBlocks.Core.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PhysicianLookup.Core.Data;
-using PhysicianLookup.Domain.Features;
 using PhysicianLookup.Domain.Features;
 using System;
 using System.Collections.Generic;
@@ -68,6 +68,8 @@ namespace PhysicianLookup.Api
             services.AddMediatR(typeof(GetNearByPhysicians));
 
             services.AddTransient<IPhysicianLookupDbContext, PhysicianLookupDbContext>();
+
+            services.AddValidation(typeof(GetNearByPhysicians));
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
             {

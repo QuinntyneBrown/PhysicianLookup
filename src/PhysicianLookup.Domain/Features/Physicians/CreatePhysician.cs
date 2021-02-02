@@ -4,19 +4,18 @@ using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using PhysicianLookup.Core.Data;
 using PhysicianLookup.Core.Models;
-using PhysicianLookup.Domain.Features;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features
 {
-    public class UpsertPhysician
+    public class CreatePhysician
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-
+                RuleFor(x => x.Physician).SetValidator(new PhysicianDtoValidator());
             }
         }
 
@@ -42,15 +41,11 @@ namespace PhysicianLookup.Domain.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var physician = await _context.Physicians.FindAsync(request.Physician.PhysicianId);
-
                 var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
-                if (physician == null)
-                {
-                    physician = new Physician();
-                    await _context.Physicians.AddAsync(physician);
-                }
+                var physician = new Physician();
+
+                await _context.Physicians.AddAsync(physician);
 
                 var address = $"{request.Physician.Address.Street}, {request.Physician.Address.City}, {request.Physician.Address.Province}, {request.Physician.Address.PostalCode}";
 
