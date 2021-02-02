@@ -47,7 +47,11 @@ export class PhysiciansService {
     return this._client.delete<void>(`${this._baseUrl}api/physicians/${options.physician.physicianId}`);
   }
 
-  public save(options: { physician: Physician }): Observable<{ physicianId: number }> {
-    return this._client.post<{ physicianId: number }>(`${this._baseUrl}api/physicians`, { physician: options.physician });
+  public create(options: { physician: Physician }): Observable<{ physician: Physician }> {
+    return this._client.post<{ physician: Physician }>(`${this._baseUrl}api/physicians`, { physician: options.physician });
+  }
+  
+  public update(options: { physician: Physician }): Observable<{ physician: Physician }> {
+    return this._client.put<{ physician: Physician }>(`${this._baseUrl}api/physicians/${options.physician.physicianId}`, { physician: options.physician });
   }  
 }

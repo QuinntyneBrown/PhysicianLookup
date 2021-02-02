@@ -1,9 +1,10 @@
-<div>
+<div *ngIf="vm$ | async as vm">
+
     <h1 class="mat-headline">Physicians</h1>
 
     <button mat-raised-button (click)='handleCreateClick()'>Create</button>
     
-    <table *ngIf="dataSource$ | async as dataSource" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="vm.dataSource$ | async" class="mat-elevation-z8">
     
         <ng-container matColumnDef="firstname">
             <th mat-header-cell *matHeaderCellDef> Firstname </th>
@@ -39,8 +40,8 @@
             </td>
           </ng-container>
     
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let data; columns: columnsToDisplay"></tr>
+        <tr mat-header-row *matHeaderRowDef="vm.columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let data; columns: vm.columnsToDisplay"></tr>
     
     </table>
     
