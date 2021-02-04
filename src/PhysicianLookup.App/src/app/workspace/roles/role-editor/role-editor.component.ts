@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component, forwardRef } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Role } from '../role';
 
 @Component({
   selector: 'app-role-editor',
@@ -30,13 +31,12 @@ export class RoleEditorComponent implements ControlValueAccessor,  Validator  {
   }
   
   public form = new FormGroup({
+    roleId: new FormControl(),
     name: new FormControl(null, [Validators.required]),
   });
   
-  writeValue(obj: any): void {   
-    this.form.patchValue({
-      name: obj.name,
-    }, { emitEvent: false });
+  writeValue(role: Role): void {   
+    this.form.patchValue(role || {}, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {

@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService {
+export class RoleService {
 
   constructor(
     @Inject(baseUrl) private _baseUrl: string,
@@ -22,7 +22,7 @@ export class RolesService {
       );
   }
 
-  public getById(options: { roleId: number }): Observable<Role> {
+  public getById(options: { roleId: string }): Observable<Role> {
     return this._client.get<{ role: Role }>(`${this._baseUrl}api/roles/${options.roleId}`)
       .pipe(
         map(x => x.role)
@@ -33,7 +33,13 @@ export class RolesService {
     return this._client.delete<void>(`${this._baseUrl}api/roles/${options.role.roleId}`);
   }
 
-  public save(options: { role: Role }): Observable<{ roleId: number }> {
-    return this._client.post<{ roleId: number }>(`${this._baseUrl}api/roles`, { role: options.role });
-  }  
+  public create(options: { role: Role }): Observable<{ role: Role }> {
+    alert(`${this._baseUrl}api/roles`);
+    
+    return this._client.post<{ role: Role }>(`${this._baseUrl}api/roles`, { role: options.role });
+  }
+  
+  public update(options: { role: Role }): Observable<{ role: Role }> {
+    return this._client.put<{ role: Role }>(`${this._baseUrl}api/roles`, { role: options.role });
+  }
 }

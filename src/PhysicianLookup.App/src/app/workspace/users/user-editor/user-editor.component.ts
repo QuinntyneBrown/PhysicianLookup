@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component, forwardRef } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { User } from '../user';
 
 @Component({
   selector: 'app-user-editor',
@@ -30,13 +31,12 @@ export class UserEditorComponent implements ControlValueAccessor,  Validator  {
   }
   
   public form = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
+    userId: new FormControl(),
+    username: new FormControl(null, [Validators.required]),
   });
   
-  writeValue(obj: any): void {   
-    this.form.patchValue({
-      name: obj.name,
-    }, { emitEvent: false });
+  writeValue(user: User): void {   
+    this.form.patchValue(user || {}, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {

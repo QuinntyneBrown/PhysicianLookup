@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RolesComponent } from './roles/roles.component';
-import { RolesService } from './roles.service';
-import { SharedModule } from '@shared/shared.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RoleEditorComponent } from './role-editor/role-editor.component';
-import { RoleComponent } from './role/role.component';
+import { RoleListComponent } from './role-list/role-list.component';
+import { RoleDetailComponent } from './role-detail/role-detail.component';
+import { SharedModule } from '@shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
-  declarations: [RolesComponent, RoleEditorComponent, RoleComponent],
-  providers: [
-    RolesService
-  ],
+  declarations: [RoleEditorComponent, RoleListComponent, RoleDetailComponent],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class RolesModule { }

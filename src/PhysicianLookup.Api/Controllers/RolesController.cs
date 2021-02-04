@@ -16,11 +16,19 @@ namespace PhysicianLookup.Api.Controllers
         public RolesController(IMediator mediator) => _mediator = mediator;
 
         [Authorize]
-        [HttpPost(Name = "UpsertRoleRoute")]
+        [HttpPost(Name = "CreateRoleRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpsertRole.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpsertRole.Response>> Upsert([FromBody]UpsertRole.Request request)
+        [ProducesResponseType(typeof(CreateRole.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateRole.Response>> Create([FromBody]CreateRole.Request request)
+            => await _mediator.Send(request);
+
+        [Authorize]
+        [HttpPut(Name = "UpdateRoleRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateRole.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateRole.Response>> Update([FromBody] UpdateRole.Request request)
             => await _mediator.Send(request);
 
         [Authorize]

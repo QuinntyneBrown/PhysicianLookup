@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features
 {
-    public class UpsertRole
+    public class CreateRole
     {
         public class Request : IRequest<Response> {  
             public RoleDto Role { get; set; }
@@ -25,13 +25,9 @@ namespace PhysicianLookup.Domain.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var role = await _context.Roles.FindAsync(request.Role.RoleId);
+                var role = new Role();
 
-                if (role == null)
-                {
-                    role = new Role();
-                    await _context.Roles.AddAsync(role);
-                }
+                await _context.Roles.AddAsync(role);
 
                 role.Name = request.Role.Name;
 

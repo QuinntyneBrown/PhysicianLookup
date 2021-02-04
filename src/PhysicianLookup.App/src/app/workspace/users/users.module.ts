@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersComponent } from './users/users.component';
-import { UsersService } from './users.service';
-import { SharedModule } from '@shared/shared.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UserListComponent } from './user-list/user-list.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
-import { UserComponent } from './user/user.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { SharedModule } from '@shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
-  declarations: [UsersComponent, UserEditorComponent, UserComponent],
-  providers: [
-    UsersService
-  ],
+  declarations: [UserListComponent, UserEditorComponent, UserDetailComponent],
   imports: [
     CommonModule,
     SharedModule,
