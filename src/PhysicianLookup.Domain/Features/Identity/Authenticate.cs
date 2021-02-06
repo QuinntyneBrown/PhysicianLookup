@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Behaviors;
 using BuildingBlocks.Core.Identity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace PhysicianLookup.Domain.Features
             public string Password { get; set; }
         }
 
-        public class Response
+        public class Response: ResponseBase
         {
             public string AccessToken { get; set; }
             public string RefreshToken { get; set; }

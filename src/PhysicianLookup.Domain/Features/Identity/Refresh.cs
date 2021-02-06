@@ -1,7 +1,6 @@
 using BuildingBlocks.Core.Identity;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using PhysicianLookup.Core.Data;
 using System.Threading;
 using System.Threading.Tasks;

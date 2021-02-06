@@ -5,10 +5,17 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace BuildingBlocks.Core.Behaviors
 {
+    public class ResponseBase
+    {
+        public List<string> ValidationErrors { get; set; }
+    }
+
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
+        where TResponse: ResponseBase, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

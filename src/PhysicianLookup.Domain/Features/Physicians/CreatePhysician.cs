@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Behaviors;
 using FluentValidation;
 using MediatR;
 using NetTopologySuite;
@@ -23,7 +24,7 @@ namespace PhysicianLookup.Domain.Features
             public PhysicianDto Physician { get; set; }
         }
 
-        public class Response
+        public class Response: ResponseBase
         {
             public PhysicianDto Physician { get; set; }
         }

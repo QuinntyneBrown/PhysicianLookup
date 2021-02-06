@@ -1,4 +1,4 @@
-using BuildingBlocks.AspNetCore;
+using BuildingBlocks.Core.Behaviors;
 using MediatR;
 using PhysicianLookup.Core.Data;
 using System;
