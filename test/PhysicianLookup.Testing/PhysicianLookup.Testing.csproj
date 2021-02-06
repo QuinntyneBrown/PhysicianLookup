@@ -1,7 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Builders\" />
+  </ItemGroup>
+  
+
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.AspNetCore\BuildingBlocks.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
+    <ProjectReference Include="..\..\src\PhysicianLookup.Api\PhysicianLookup.Api.csproj" />
+  </ItemGroup>
+  
+
+  
+  <ItemGroup>
+
+  </ItemGroup>
+  
+
+  
+  <ItemGroup>
+    <PackageReference Include="XUnit.Abstractions" Version="2.0.3" />
+  </ItemGroup>
 
 </Project>

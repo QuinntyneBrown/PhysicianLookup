@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BuildingBlocks.Core.Identity;
 using PhysicianLookup.Core.Seeding;
+using PhysicianLookup.Testing.Factories;
 
 namespace IntegrationTests
 {
@@ -27,12 +28,17 @@ namespace IntegrationTests
 
         public async Task<HttpClient> CreateServer(bool isAdmin = false)
         {
-            var hostBuilder = Program.CreateHostBuilder(null)
+            var hostBuilder = Program.CreateHostBuilder(null) 
+                .ConfigureAppConfiguration((context,config) =>
+                {
+                    config.AddUserSecrets<Startup>();
+                })
                 .ConfigureWebHost(webHost =>
                 {
                     webHost.UseTestServer();
                     webHost.UseEnvironment("Test");
                 });
+
 
             var host = await hostBuilder.StartAsync();
 

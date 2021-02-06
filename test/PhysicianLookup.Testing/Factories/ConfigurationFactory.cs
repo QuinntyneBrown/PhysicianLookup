@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using PhysicianLookup.Api;
+using System.IO;
 
 namespace PhysicianLookup.Testing.Factories
 {
-    class ConfigurationFactory
+    public static class ConfigurationFactory
     {
+        private static IConfiguration configuration;
+        public static IConfiguration Create()
+        {
+            if (configuration == null)
+            {
+                var basePath = Path.GetFullPath("../../../../../src/PhysicianLookup.Api");
+
+                configuration = new ConfigurationBuilder()
+                    .SetBasePath(basePath)
+                    .AddJsonFile("appsettings.json", false)
+                    .AddUserSecrets<Startup>()
+                    .Build();
+            }
+
+            return configuration;
+        }
     }
 }

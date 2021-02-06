@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\src\PhysicianLookup.Core\PhysicianLookup.Core.csproj" />
     <ProjectReference Include="..\..\src\PhysicianLookup.Domain\PhysicianLookup.Domain.csproj" />
     <ProjectReference Include="..\..\src\PhysicianLookup.Api\PhysicianLookup.Api.csproj" />
+    <ProjectReference Include="..\PhysicianLookup.Testing\PhysicianLookup.Testing.csproj" />
   </ItemGroup>
 
 </Project>

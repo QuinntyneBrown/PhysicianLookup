@@ -12,7 +12,7 @@ namespace IntegrationTests.Features
         [Fact]
         public async Task ShouldReturnToken()
         {
-            var content = new { Password = "tikdoc1!", Username = "admin@tikdoc.ca" };
+            var content = new { Password = "admin", Username = "quinn" };
 
             var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
 
