@@ -19,7 +19,7 @@ namespace BuildingBlocks.AspNetCore.Extensions
             {
                 var validatorType = typeof(IValidator<>).MakeGenericType(requestType);
 
-                foreach (var validatorImpl in Assembly.GetExecutingAssembly().GetTypes().Where(v => validatorType.IsAssignableFrom(v)))
+                foreach (var validatorImpl in type.Assembly.GetTypes().Where(v => validatorType.IsAssignableFrom(v)))
                 {
                     services.AddTransient(validatorType, validatorImpl);
                 }

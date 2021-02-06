@@ -1,5 +1,6 @@
 using BuildingBlocks.Core.Behaviors;
 using BuildingBlocks.Core.Identity;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
@@ -14,6 +15,15 @@ namespace PhysicianLookup.Domain.Features
 {
     public class Authenticate
     {
+        public class Validator: AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Password)
+                    .NotEmpty()
+                    .NotNull();
+            }
+        }
         public class Request : IRequest<Response>
         {
             public string Username { get; set; }

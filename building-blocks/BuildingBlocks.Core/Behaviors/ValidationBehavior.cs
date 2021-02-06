@@ -5,12 +5,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace BuildingBlocks.Core.Behaviors
 {
     public class ResponseBase
     {
-        public List<string> ValidationErrors { get; set; }
+        public List<string> ValidationErrors { get; set; } = new List<string>();
     }
 
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
@@ -22,7 +21,7 @@ namespace BuildingBlocks.Core.Behaviors
         public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
             => _validators = validators;
 
-        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             var context = new ValidationContext<TRequest>(request);
             var failures = _validators
@@ -32,9 +31,18 @@ namespace BuildingBlocks.Core.Behaviors
                 .ToList();
 
             if (failures.Any())
-                throw new ValidationException(failures);
+            {
+                var response = new TResponse();
 
-            return next();
+                foreach(var failure in failures)
+                {
+                    response.ValidationErrors.Add(failure.ErrorMessage);
+                }
+                
+                return response;
+            }  
+
+            return await next();
         }
     }
 }
