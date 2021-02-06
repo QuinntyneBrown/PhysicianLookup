@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PhysiciansComponent } from './physicians/physicians.component';
-import { PhysiciansService } from './physicians.service';
+import { PhysicianService } from './physician.service';
 import { SharedModule } from '@shared/shared.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddressesModule } from '../addresses/addresses.module';
 import { PhysicianEditorComponent } from './physician-editor/physician-editor.component';
-import { PhysicianComponent } from './physician/physician.component';
+import { PhysicianListComponent } from './physician-list/physician-list.component';
+import { PhysicianDetailComponent } from './physician-detail/physician-detail.component';
 
 @NgModule({
-  declarations: [PhysiciansComponent, PhysicianEditorComponent, PhysicianComponent],
+  declarations: [PhysicianEditorComponent, PhysicianListComponent, PhysicianDetailComponent],
   providers: [
-    PhysiciansService
+    PhysicianService
   ],
   imports: [
     AddressesModule,

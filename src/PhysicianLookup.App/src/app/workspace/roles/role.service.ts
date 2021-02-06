@@ -33,9 +33,7 @@ export class RoleService {
     return this._client.delete<void>(`${this._baseUrl}api/roles/${options.role.roleId}`);
   }
 
-  public create(options: { role: Role }): Observable<{ role: Role }> {
-    alert(`${this._baseUrl}api/roles`);
-    
+  public create(options: { role: Role }): Observable<{ role: Role }> {    
     return this._client.post<{ role: Role }>(`${this._baseUrl}api/roles`, { role: options.role });
   }
   

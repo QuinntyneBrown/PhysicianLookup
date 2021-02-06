@@ -30,13 +30,11 @@ export class AddressEditorComponent implements ControlValueAccessor,  Validator 
   }
   
   public form = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
+
   });
   
   writeValue(obj: any): void {   
-    this.form.patchValue({
-      name: obj.name,
-    }, { emitEvent: false });
+    this.form.patchValue(obj || {}, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {

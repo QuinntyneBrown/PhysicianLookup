@@ -1,0 +1,13 @@
+<mat-card *ngIf="vm$ | async as vm">
+    
+    <h1 *ngIf="!vm.form.value.physicianId">Create Physician</h1>
+    
+    <h1 *ngIf="vm.form.value.physicianId">Edit Physician</h1>
+    
+    <form [formGroup]="vm.form">
+        <app-physician-editor formControlName="physician"></app-physician-editor>
+    </form>
+
+    <app-entity-actions (save)="save(vm)" (cancel)="cancel()"></app-entity-actions>
+
+</mat-card>

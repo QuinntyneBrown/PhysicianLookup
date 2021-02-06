@@ -2,7 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhysicianLookup.Domain.Features;
-using PhysicianLookup.Domain.Features;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -41,11 +40,19 @@ namespace PhysicianLookup.Api.Controllers
         }
 
         [Authorize]
-        [HttpPost(Name = "UpsertUserRoute")]
+        [HttpPost(Name = "CreateUserRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpsertUser.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpsertUser.Response>> Upsert([FromBody] UpsertUser.Request request)
+        [ProducesResponseType(typeof(UpdateUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateUser.Response>> Create([FromBody] CreateUser.Request request)
+            => await _mediator.Send(request);
+
+        [Authorize]
+        [HttpPut(Name = "UpdateUserRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateUser.Response>> Update([FromBody] UpdateUser.Request request)
             => await _mediator.Send(request);
 
         [Authorize]

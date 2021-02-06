@@ -4,7 +4,7 @@ namespace PhysicianLookup.Domain.Features
 {
     public class PhysicianDto
     {
-        public Guid PhysicianId { get; set; }
+        public Guid? PhysicianId { get; set; }
         public string Title { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }

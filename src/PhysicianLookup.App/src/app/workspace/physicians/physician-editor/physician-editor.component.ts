@@ -42,9 +42,9 @@ export class PhysicianEditorComponent implements ControlValueAccessor,  Validato
   });
   
   writeValue(physician: Physician): void {   
-    this.form.patchValue({
-      physicianId: physician.physicianId,
-    }, { emitEvent: false });
+    physician = physician || {} as Physician;
+
+    this.form.patchValue(physician, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {

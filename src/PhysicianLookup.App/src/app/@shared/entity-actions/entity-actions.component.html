@@ -1,4 +1,4 @@
 <div>
-    <button mat-raised-button color="primary">Save</button>
-    <button mat-button>Cancel</button>
+    <button mat-raised-button color="primary" (click)="save.emit()">Save</button>
+    <button mat-button (click)="cancel.emit()">Cancel</button>
   </div>

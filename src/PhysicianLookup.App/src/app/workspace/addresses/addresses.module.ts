@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     SharedModule
+  ],
+  exports: [
+    AddressEditorComponent
   ]
 })
 export class AddressesModule { }

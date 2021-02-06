@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class PhysiciansService {
+export class PhysicianService {
 
   constructor(
     @Inject(baseUrl) private _baseUrl: string,
@@ -22,7 +22,7 @@ export class PhysiciansService {
       );
   }
 
-  public searc(options: { query: string }): Observable<Physician[]> {
+  public search(options: { query: string }): Observable<Physician[]> {
     return this._client.get<{ physicians: Physician[] }>(`${this._baseUrl}api/physicians/${options.query}`)
       .pipe(
         map(x => x.physicians)

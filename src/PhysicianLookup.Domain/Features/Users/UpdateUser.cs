@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PhysicianLookup.Domain.Features
 {
-    public class UpsertUser
+    public class UpdateUser
     {
         public class Request : IRequest<Response> {  
             public UserDto User { get; set; }

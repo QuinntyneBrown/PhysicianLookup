@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.AspNetCore\BuildingBlocks.AspNetCore.csproj" />
     <ProjectReference Include="..\PhysicianLookup.Core\PhysicianLookup.Core.csproj" />
     <ProjectReference Include="..\..\building-blocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
   </ItemGroup>

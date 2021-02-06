@@ -1,3 +1,4 @@
+using BuildingBlocks.AspNetCore;
 using MediatR;
 using PhysicianLookup.Core.Data;
 using System;
@@ -8,12 +9,12 @@ namespace PhysicianLookup.Domain.Features
 {
     public class ChangePassword
     {
-        public class Request : IRequest<Unit> {
+        public class Request : IRequest<ResponseBase> {
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request, Unit>
+        public class Handler : IRequestHandler<Request, ResponseBase>
         {
             private readonly IPhysicianLookupDbContext _context;
 
@@ -21,8 +22,9 @@ namespace PhysicianLookup.Domain.Features
                 _context = context;            
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken) {
-			    throw new Exception();
+            public async Task<ResponseBase> Handle(Request request, CancellationToken cancellationToken) {
+
+                return new ResponseBase();
             }
         }
     }

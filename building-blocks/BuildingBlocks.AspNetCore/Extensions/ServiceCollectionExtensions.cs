@@ -15,7 +15,7 @@ namespace BuildingBlocks.AspNetCore.Extensions
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            foreach (var requestType in GetAllTypesImplementingOpenGenericType(typeof(IRequest<>), Assembly.GetExecutingAssembly()))
+            foreach (var requestType in GetAllTypesImplementingOpenGenericType(typeof(IRequest<>), type.Assembly))
             {
                 var validatorType = typeof(IValidator<>).MakeGenericType(requestType);
 
