@@ -4,6 +4,7 @@ using System.Threading;
 using PhysicianLookup.Core.Data;
 using FluentValidation;
 using System;
+using BuildingBlocks.Core.Behaviors;
 
 namespace PhysicianLookup.Domain.Features
 {
@@ -21,7 +22,7 @@ namespace PhysicianLookup.Domain.Features
             public Guid PhysicianId { get; set; }
         }
 
-        public class Response
+        public class Response : ResponseBase
         {
             public PhysicianDto Physician { get; set; }
         }

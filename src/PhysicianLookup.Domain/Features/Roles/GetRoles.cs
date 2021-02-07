@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Behaviors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
@@ -12,7 +13,7 @@ namespace PhysicianLookup.Domain.Features
     {
         public class Request : IRequest<Response> {  }
 
-        public class Response
+        public class Response : ResponseBase
         {
             public List<RoleDto> Roles { get; set; }
         }

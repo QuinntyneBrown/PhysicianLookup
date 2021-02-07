@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Behaviors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
@@ -13,7 +14,7 @@ namespace PhysicianLookup.Domain.Features
             public UserDto User { get; set; }
         }
 
-        public class Response
+        public class Response : ResponseBase
         {
             public UserDto User { get; set; }
         }

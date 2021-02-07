@@ -4,6 +4,7 @@ using System.Threading;
 using PhysicianLookup.Core.Data;
 using FluentValidation;
 using System.Collections.Generic;
+using BuildingBlocks.Core.Behaviors;
 
 namespace PhysicianLookup.Domain.Features
 {
@@ -21,7 +22,7 @@ namespace PhysicianLookup.Domain.Features
             public string Query { get; set; }
         }
 
-        public class Response
+        public class Response : ResponseBase
         {
             public List<PhysicianDto> Physicians { get; set; }
         }

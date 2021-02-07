@@ -1,3 +1,4 @@
+using BuildingBlocks.Core.Behaviors;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace PhysicianLookup.Domain.Features
             public double Longitude { get; set; }
         }
 
-        public class Response
+        public class Response: ResponseBase
         {
             public List<NearByPhysicianDto> Physicians { get; set; }
         }
