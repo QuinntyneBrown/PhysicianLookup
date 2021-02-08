@@ -124,7 +124,7 @@ namespace PhysicianLookup.Api
             services.AddControllers();
         }
 
-        private static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
+        public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
