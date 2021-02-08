@@ -20,8 +20,7 @@ namespace PhysicianLookup.Core.Data
         public DbSet<UserRole> UserRoles { get; private set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Physician>().OwnsOne(physician => physician.Address);
-            builder.Entity<UserRole>().HasKey(t => new { t.RoleId, t.UserId });
+            builder.ApplyConfigurationsFromAssembly(typeof(PhysicianLookupDbContext).Assembly);
         }
     }
 }
