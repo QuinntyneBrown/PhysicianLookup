@@ -1,8 +1,7 @@
 using BuildingBlocks.Core;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using NetTopologySuite.Geometries;
-using NetTopologySuite;
+using System.Collections.Generic;
 
 namespace PhysicianLookup.Core.Models
 {

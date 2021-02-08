@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace PhysicianLookup.Core.Models
 {
@@ -8,5 +7,4 @@ namespace PhysicianLookup.Core.Models
         public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
     }
-
 }

@@ -15,5 +15,4 @@ namespace PhysicianLookup.Core.Models
         public string Website { get; set; }
         public Address Address { get; set; }
     }
-
 }
