@@ -1,18 +1,15 @@
-/*using Newtonsoft.Json;
+using Newtonsoft.Json;
 using PhysicianLookup.Core.Models;
 using PhysicianLookup.Domain.Features;
-using PhysicianLookup.Domain.Features.Physicians;
 using PhysicianLookup.Testing;
-using PhysicianLookup.Testing.Builders.Core.Models;
-using PhysicianLookup.Testing.Builders.Domain.Dtos;
+using PhysicianLookup.Testing.Builders;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using Xunit;
-using static .Features.PhysiciansControllerTests.Endpoints;
 
-namespace .Features
+namespace PhysicianLookup.IntegrationTests.Features
 {
     public class PhysiciansControllerTests : IClassFixture<ApiTestFixture>
     {
@@ -52,17 +49,17 @@ namespace .Features
 
             var client = _fixture.CreateAuthenticatedClient();
 
-            context.Store(physician);
+            context.Physicians.Add(physician);
 
             await context.SaveChangesAsync(default);
 
-            var httpResponseMessage = await client.DeleteAsync(Delete.By(physician.PhysicianId));
+            var httpResponseMessage = await client.DeleteAsync(Endpoints.Delete.By(physician.PhysicianId));
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
             var removedPhysician = await context.FindAsync<Physician>(physician.PhysicianId);
 
-            Assert.NotEqual(default, removedPhysician.Deleted);
+            Assert.NotEqual(default, removedPhysician);
         }
 
         [Fact]
@@ -72,13 +69,13 @@ namespace .Features
 
             var context = _fixture.Context;
 
-            context.Store(physician);
+            context.Physicians.Add(physician);
 
             await context.SaveChangesAsync(default);
 
             StringContent stringContent = new StringContent(JsonConvert.SerializeObject(new { physician = physician.ToDto() }), Encoding.UTF8, "application/json");
 
-            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().PutAsync(Put.Update, stringContent);
+            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().PutAsync(Endpoints.Put.Update, stringContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -93,11 +90,11 @@ namespace .Features
 
             var context = _fixture.Context;
 
-            context.Store(physician);
+            context.Physicians.Add(physician);
 
             await context.SaveChangesAsync(default);
 
-            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().GetAsync(Get.Physicians);
+            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().GetAsync(Endpoints.Get.Physicians);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -113,11 +110,11 @@ namespace .Features
 
             var context = _fixture.Context;
 
-            context.Store(physician);
+            context.Physicians.Add(physician);
 
             await context.SaveChangesAsync(default);
 
-            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().GetAsync(Get.By(physician.PhysicianId));
+            var httpResponseMessage = await _fixture.CreateAuthenticatedClient().GetAsync(Endpoints.Get.By(physician.PhysicianId));
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -158,4 +155,3 @@ namespace .Features
         }
     }
 }
-*/
