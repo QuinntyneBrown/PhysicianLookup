@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PhysicianLookup.Api;
 using PhysicianLookup.Core.Data;
+using PhysicianLookup.Core.Seeding;
 using PhysicianLookup.Testing.AuthenticationHandlers;
 using PhysicianLookup.Testing.Factories;
 using System;
@@ -47,6 +48,8 @@ namespace PhysicianLookup.Testing
                     Context = scopedServices.GetRequiredService<PhysicianLookupDbContext>();
 
                     Context.Database.EnsureCreated();
+
+                    SeedData.Seed(Context, ConfigurationFactory.Create());
                 }
             });
         }

@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 })
 export class PhysicianListComponent implements OnDestroy {
 
-  private readonly _destroyed: Subject<void> = new Subject();
+  private readonly _destroyed$: Subject<void> = new Subject();
   
   private readonly createPhysician = this._componentStore.updater((state: { physicians: Physician[] },physician: Physician) => {    
     state.physicians.push(physician);
@@ -83,7 +83,7 @@ export class PhysicianListComponent implements OnDestroy {
     component.physician$.next(physician);    
     component.saved
     .pipe(
-      takeUntil(this._destroyed),
+      takeUntil(this._destroyed$),
       tap(x => this.updatePhysician(x))
     ).subscribe();
   }
@@ -92,7 +92,7 @@ export class PhysicianListComponent implements OnDestroy {
     this._dialogService.open<PhysicianDetailComponent>(PhysicianDetailComponent)
     .saved
     .pipe(
-      takeUntil(this._destroyed),
+      takeUntil(this._destroyed$),
       tap(x => this.createPhysician(x))
     ).subscribe();
   }
@@ -100,12 +100,12 @@ export class PhysicianListComponent implements OnDestroy {
   public delete(physician: Physician) {    
     this.deletePhysician(physician);
     this._physicianService.remove({ physician }).pipe(
-      takeUntil(this._destroyed) 
+      takeUntil(this._destroyed$) 
     ).subscribe();
   }
   
   ngOnDestroy() {
-    this._destroyed.next();
-    this._destroyed.complete();
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 }

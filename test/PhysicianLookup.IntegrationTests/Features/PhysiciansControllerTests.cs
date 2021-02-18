@@ -86,13 +86,13 @@ namespace PhysicianLookup.IntegrationTests.Features
         [Fact]
         public async System.Threading.Tasks.Task Should_GetPhysicians()
         {
-            var physician = PhysicianBuilder.WithDefaults();
+/*            var physician = PhysicianBuilder.WithDefaults();
 
             var context = _fixture.Context;
 
             context.Physicians.Add(physician);
 
-            await context.SaveChangesAsync(default);
+            await context.SaveChangesAsync(default);*/
 
             var httpResponseMessage = await _fixture.CreateAuthenticatedClient().GetAsync(Endpoints.Get.Physicians);
 

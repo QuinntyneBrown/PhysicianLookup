@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.AspNetCore;
+﻿using BuildingBlocks.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,7 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using BuildingBlocks.AspNetCore.Extensions;
 
 namespace PhysicianLookup.Testing.AuthenticationHandlers
 {
@@ -17,10 +16,7 @@ namespace PhysicianLookup.Testing.AuthenticationHandlers
     {
         public TestAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
-            : base(options, logger, encoder, clock)
-        {
-
-        }
+            : base(options, logger, encoder, clock) { }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
