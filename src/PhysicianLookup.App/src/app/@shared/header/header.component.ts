@@ -8,11 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
     "class": "mat-elevation-z6"
   }
 })
-export class HeaderComponent implements OnInit { 
-
+export class HeaderComponent{ 
   @Input() public username: string;
-
-  ngOnInit() {
-
-  }
 }
