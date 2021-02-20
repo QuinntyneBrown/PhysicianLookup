@@ -36,7 +36,8 @@ export class LandingComponent implements OnInit {
     );
   }
 
-  public ngOnDestroy(): void {
+  public ngOnDestroy(): void {    
     this._destroyed.next();
+    this._destroyed.complete();
   }
 }

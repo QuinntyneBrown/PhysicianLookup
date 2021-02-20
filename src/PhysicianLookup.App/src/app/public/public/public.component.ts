@@ -7,15 +7,10 @@ import { LocalStorageService } from '@core/local-storage.service';
   templateUrl: './public.component.html',
   styleUrls: ['./public.component.scss']
 })
-export class PublicComponent implements OnInit {
+export class PublicComponent {
 
   public get username() { return this._localStorageService.get({ name: usernameKey }); }
 
-  constructor(
-    private _localStorageService: LocalStorageService
-  ) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private _localStorageService: LocalStorageService) { }
 
 }
