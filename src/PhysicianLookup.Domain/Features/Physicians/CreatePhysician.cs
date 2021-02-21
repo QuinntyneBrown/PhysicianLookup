@@ -1,6 +1,7 @@
 using BuildingBlocks.Core.Behaviors;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using PhysicianLookup.Core.Data;
@@ -33,11 +34,13 @@ namespace PhysicianLookup.Domain.Features
         {
             private readonly IPhysicianLookupDbContext _context;
             private readonly IGoogleMapsService _googleMapsService;
+            private readonly IConfiguration _configuration;
             
-            public Handler(IPhysicianLookupDbContext context, IGoogleMapsService googleMapsService)
+            public Handler(IPhysicianLookupDbContext context, IGoogleMapsService googleMapsService, IConfiguration configuration)
             {
                 _context = context;
                 _googleMapsService = googleMapsService;
+                _configuration = configuration;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
