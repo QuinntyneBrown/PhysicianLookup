@@ -6,5 +6,7 @@
         {
             public static readonly string UserId = nameof(UserId);
         }
+
+        public static readonly string GooglePlatformApiKey = "GoogleMapsPlatform:ApiKey";
     }
 }

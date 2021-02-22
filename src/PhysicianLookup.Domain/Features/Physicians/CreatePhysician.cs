@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
+using PhysicianLookup.Core;
 using PhysicianLookup.Core.Data;
 using PhysicianLookup.Core.Models;
 using System.Threading;
@@ -53,23 +54,38 @@ namespace PhysicianLookup.Domain.Features
 
                 var address = $"{request.Physician.Address.Street}, {request.Physician.Address.City}, {request.Physician.Address.Province}, {request.Physician.Address.PostalCode}";
 
-                var response = await _googleMapsService.GetCoordinates(address);
-
                 physician.Title = request.Physician.Title;
                 physician.Firstname = request.Physician.Firstname;
                 physician.Lastname = request.Physician.Lastname;
                 physician.PhoneNumber = request.Physician.PhoneNumber;
                 physician.EmailAddress = request.Physician.EmailAddress;
                 physician.Website = request.Physician.Website;
-                physician.Address = new Address(
+
+                if(!string.IsNullOrEmpty(_configuration[Constants.GooglePlatformApiKey]))
+                {
+                    var response = await _googleMapsService.GetCoordinates(address);
+                    physician.Address = new Address(
                     request.Physician.Address.Street,
                     request.Physician.Address.City,
                     request.Physician.Address.Province,
                     request.Physician.Address.PostalCode,
                     response.Latitude,
                     response.Longitude,
-                    geometryFactory.CreatePoint(new Coordinate(response.Latitude, response.Longitude)));
-
+                    geometryFactory.CreatePoint(new Coordinate(response.Latitude, response.Longitude))
+                    );
+                }
+                else
+                {
+                    physician.Address = new Address(
+                        request.Physician.Address.Street,
+                        request.Physician.Address.City,
+                        request.Physician.Address.Province,
+                        request.Physician.Address.PostalCode,
+                        default,
+                        default,
+                        default
+                        );
+                }
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response()
