@@ -9,6 +9,7 @@ namespace PhysicianLookup.Domain.Features
             RuleFor(x => x.Street).NotNull();
             RuleFor(x => x.City).NotNull();
             RuleFor(x => x.Province).NotNull();
+            RuleFor(x => x.PostalCode).NotNull();
         }
     }
 }

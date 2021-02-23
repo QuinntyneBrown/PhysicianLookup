@@ -16,7 +16,7 @@ namespace PhysicianLookup.Core.Models
         public double Longitude { get; private set; }
         public Point Location { get; private set; }
 
-        public Address(string street, string city, string province, string postalCode, double longitude, double latitude, Point location)
+        public Address(string street, string city, string province, string postalCode, double longitude = default, double latitude = default, Point location = default)
         {            
             Street = street;
             City = city;

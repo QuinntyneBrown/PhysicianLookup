@@ -80,10 +80,7 @@ namespace PhysicianLookup.Domain.Features
                         request.Physician.Address.Street,
                         request.Physician.Address.City,
                         request.Physician.Address.Province,
-                        request.Physician.Address.PostalCode,
-                        default,
-                        default,
-                        default
+                        request.Physician.Address.PostalCode
                         );
                 }
                 await _context.SaveChangesAsync(cancellationToken);
