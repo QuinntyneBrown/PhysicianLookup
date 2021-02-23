@@ -13,7 +13,7 @@ namespace PhysicianLookup.Domain.Features
         public class Request : IRequest<Response>
         {
             public int PageSize { get; set; } = 10;
-            public int Page { get; set; } = 1;
+            public int PageNumber { get; set; } = 1;
         }
 
         public class Response : ResponseBase
@@ -38,16 +38,16 @@ namespace PhysicianLookup.Domain.Features
 
                 var count = await _context.Physicians.CountAsync();
 
-                var physicians = await query.Skip(request.PageSize * (request.Page - 1)).Take(request.PageSize).Select(x => x.ToDto()).ToListAsync();
+                var physicians = await query.Skip(request.PageSize * (request.PageNumber - 1)).Take(request.PageSize).Select(x => x.ToDto()).ToListAsync();
 
-                return new Response()
+                return new ()
                 {
                     PhysicianPage = new PhysicianPageDto()
                     {
-                        TotalPages = ((int)(count / request.PageSize)) + ((count % request.PageSize) > 0 ? 1 : 0),
-                        CurrentPage = request.Page,
-                        TotalResults = count,
-                        Physicians = physicians
+                        TotalPages = (count / request.PageSize) + ((count % request.PageSize) > 0 ? 1 : 0),
+                        CurrentPage = request.PageNumber,
+                        Length = count,
+                        Entities = physicians
                     }
                 };
             }

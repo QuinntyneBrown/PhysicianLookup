@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { replace } from '@core/replace';
 import { DialogService } from '@shared/dialog.service';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Physician } from '../physician';
 import { PhysicianDetailComponent } from '../physician-detail/physician-detail.component';
 import { PhysicianService } from '../physician.service';
 import { pluckOut } from '@core/pluck-out';
 import { ComponentStore } from '@ngrx/component-store';
-import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-physician-list',
@@ -23,7 +23,11 @@ import { Router } from '@angular/router';
 export class PhysicianListComponent implements OnDestroy {
 
   private readonly _destroyed$: Subject<void> = new Subject();
-  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  private readonly pageIndex$: BehaviorSubject<number> = new BehaviorSubject(1);
+  private readonly pageSize$: BehaviorSubject<number> = new BehaviorSubject(1);
+
   private readonly createPhysician = this._componentStore.updater((state: { physicians: Physician[] },physician: Physician) => {    
     state.physicians.push(physician);
     return {
@@ -45,33 +49,43 @@ export class PhysicianListComponent implements OnDestroy {
 
   public readonly vm$: Observable<{
     dataSource$: Observable<MatTableDataSource<Physician>>,
-    columnsToDisplay: string[]
-  }> = combineLatest([
-    this._physicianService.get(),
-    of([
-      'firstname',
-      'lastname',
-      'street',
-      'emailAddress',
-      'phoneNumber',
-      'edit'
-    ])    
-  ])
+    columnsToDisplay: string[],
+    length: number,
+    pageNumber: number,
+    pageSize: number
+  }> = combineLatest([this.pageIndex$, this.pageSize$ ])
   .pipe(
-    map(([physicians, columnsToDisplay]) => {
-
-      this._componentStore.setState({ physicians });
-
-      return {
-        dataSource$: this._componentStore.select((state) => ({
-          physicians: state.physicians,
-        })).pipe(
-          map(x => new MatTableDataSource(x.physicians))),
-        columnsToDisplay
-      }
-    })
+    switchMap(([pageIndex,pageSize]) => combineLatest([
+      this._physicianService.getPage({ pageIndex, pageSize }),
+      of([
+        'firstname',
+        'lastname',
+        'street',
+        'emailAddress',
+        'phoneNumber',
+        'edit'
+      ]),
+      of(pageIndex),
+      of(pageSize)  
+    ])
+    .pipe(
+      map(([physicianPage, columnsToDisplay, pageNumber, pageSize]) => { 
+        this._componentStore.setState({ physicians: physicianPage.entities });
+  
+        return {
+          dataSource$: this._componentStore.select((state) => ({
+            physicians: state.physicians
+          })).pipe(map(x => new MatTableDataSource(x.physicians))),
+  
+          columnsToDisplay,
+          length: physicianPage.length,
+          pageSize,
+          pageNumber
+        }
+      })
+    ))
   );
-
+  
   constructor(
     private readonly _physicianService: PhysicianService,
     private readonly _dialogService: DialogService,
@@ -102,6 +116,10 @@ export class PhysicianListComponent implements OnDestroy {
     this._physicianService.remove({ physician }).pipe(
       takeUntil(this._destroyed$) 
     ).subscribe();
+  }
+
+  handlePage(event$) {
+    this.pageIndex$.next(this.paginator.pageIndex + 1);
   }
   
   ngOnDestroy() {

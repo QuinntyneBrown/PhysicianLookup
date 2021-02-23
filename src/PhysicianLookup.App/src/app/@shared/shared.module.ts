@@ -10,9 +10,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { HeaderComponent } from './header/header.component';
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { EntityActionsComponent } from './entity-actions/entity-actions.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {HeaderComponent} from './header/header.component';
+import {AdminHeaderComponent } from './admin-header/admin-header.component';
+import {EntityActionsComponent} from './entity-actions/entity-actions.component';
 
 @NgModule({
   imports: [    
@@ -27,6 +28,7 @@ import { EntityActionsComponent } from './entity-actions/entity-actions.componen
     MatListModule,
     MatTableModule,
     MatSnackBarModule,
+    MatPaginatorModule
   ],
   exports: [
     MatToolbarModule,
@@ -40,6 +42,7 @@ import { EntityActionsComponent } from './entity-actions/entity-actions.componen
     MatListModule,
     MatTableModule,
     MatSnackBarModule,
+    MatPaginatorModule,
     HeaderComponent,
     AdminHeaderComponent,
     EntityActionsComponent

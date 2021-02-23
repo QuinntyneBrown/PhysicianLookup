@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Physician } from './physician';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { PhysicianListComponent } from './physician-list/physician-list.component';
+import { PhysicianPage } from './physician-page';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,13 @@ export class PhysicianService {
     return this._client.get<{ physicians: Physician[] }>(`${this._baseUrl}api/physicians`)
       .pipe(
         map(x => x.physicians)
+      );
+  }
+
+  public getPage(options:{ pageSize: number, pageIndex: number }): Observable<PhysicianPage> {
+    return this._client.get<{ physicianPage: PhysicianPage }>(`${this._baseUrl}api/physicians/page/${options.pageSize}/${options.pageIndex}`)
+      .pipe(
+        map(x => x.physicianPage)
       );
   }
 

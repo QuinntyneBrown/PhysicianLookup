@@ -2,9 +2,24 @@
   "physicians": [
     {
       "physicianId": "6aaecece-0165-4f96-afea-c74310aa51a1",
-      "title":  "Dr.",
+      "title": "Dr.",
       "firstname": "Alya ",
       "lastname": "Rahim",
+      "street": "790 Bay St",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M5G 1N8",
+      "phoneNumber": "(647) 427-6001",
+      "emailAddress": null,
+      "website": null,
+      "longitude": -79.3860586,
+      "latitude": 43.6604976
+    },
+    {
+      "physicianId": "528388d3-bc43-4306-acce-18197119ffe6",
+      "title": "Dr.",
+      "firstname": "Joe ",
+      "lastname": "Johnson",
       "street": "790 Bay St",
       "city": "Toronto",
       "province": "Ontario",
