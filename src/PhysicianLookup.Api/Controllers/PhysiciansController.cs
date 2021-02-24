@@ -66,7 +66,7 @@ namespace PhysicianLookup.Api.Controllers
             => await _mediator.Send(new GetPhysicians.Request());
 
         [Authorize]
-        [HttpGet("page/{pageSize}/{pageNumber}", Name = "GetPhysiciansPageRoute")]
+        [HttpGet("page/{pageSize}/{pageIndex}", Name = "GetPhysiciansPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetPhysicians.Response), (int)HttpStatusCode.OK)]

@@ -1,10 +1,13 @@
 using BuildingBlocks.Core.Behaviors;
+using BuildingBlocks.Core.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PhysicianLookup.Core.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static PhysicianLookup.Core.Constants.Paging;
 
 namespace PhysicianLookup.Domain.Features
 {
@@ -12,13 +15,14 @@ namespace PhysicianLookup.Domain.Features
     {
         public class Request : IRequest<Response>
         {
-            public int PageSize { get; set; } = 10;
-            public int PageNumber { get; set; } = 1;
+            public int PageSize { get; set; } = DefaultPageSize;
+            public int PageIndex { get; set; }
         }
 
         public class Response : ResponseBase
         {
-            public PhysicianPageDto PhysicianPage { get; set; }
+            public int Length { get; set; }
+            public List<PhysicianDto> Entities { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -32,23 +36,17 @@ namespace PhysicianLookup.Domain.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
                 var query = from physician in _context.Physicians
                             select physician;
 
-                var count = await _context.Physicians.CountAsync();
+                var length = await _context.Physicians.CountAsync();
 
-                var physicians = await query.Skip(request.PageSize * (request.PageNumber - 1)).Take(request.PageSize).Select(x => x.ToDto()).ToListAsync();
+                var physicians = await query.Page(request.PageIndex, request.PageSize).Select(x => x.ToDto()).ToListAsync();
 
                 return new ()
                 {
-                    PhysicianPage = new PhysicianPageDto()
-                    {
-                        TotalPages = (count / request.PageSize) + ((count % request.PageSize) > 0 ? 1 : 0),
-                        CurrentPage = request.PageNumber,
-                        Length = count,
-                        Entities = physicians
-                    }
+                    Length = length,
+                    Entities = physicians
                 };
             }
         }

@@ -8,5 +8,10 @@
         }
 
         public static readonly string GooglePlatformApiKey = "GoogleMapsPlatform:ApiKey";
+
+        public static class Paging
+        {
+            public static readonly int DefaultPageSize = 10;
+        }
     }
 }
