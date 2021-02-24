@@ -1,23 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { replace } from '@core/replace';
 import { DialogService } from '@shared/dialog.service';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Physician } from '../physician';
 import { PhysicianDetailComponent } from '../physician-detail/physician-detail.component';
 import { PhysicianService } from '../physician.service';
-import { pluckOut } from '@core/pluck-out';
-import { ComponentStore } from '@ngrx/component-store';
 import { MatPaginator } from '@angular/material/paginator';
+import { EntityDataSource } from '@shared/entity-data-source';
 
 @Component({
   selector: 'app-physician-list',
   templateUrl: './physician-list.component.html',
   styleUrls: ['./physician-list.component.scss'],
-  providers: [
-    ComponentStore
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhysicianListComponent implements OnDestroy {
@@ -26,37 +20,18 @@ export class PhysicianListComponent implements OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private readonly pageIndex$: BehaviorSubject<number> = new BehaviorSubject(1);
-  private readonly pageSize$: BehaviorSubject<number> = new BehaviorSubject(1);
-
-  private readonly createPhysician = this._componentStore.updater((state: { physicians: Physician[] },physician: Physician) => {    
-    state.physicians.push(physician);
-    return {
-      physicians: state.physicians
-    }
-  });
-
-  private readonly updatePhysician = this._componentStore.updater((state: { physicians: Physician[] },physician: Physician) => {    
-    return {
-      physicians: replace({ items: state.physicians, value: physician, key: "physicianId" })
-    }
-  });
-
-  private readonly deletePhysician = this._componentStore.updater((state: { physicians: Physician[] },physician: Physician) => {    
-    return {
-      physicians: pluckOut({ items: state.physicians, value: physician, key: "physicianId" })
-    }
-  });
+  private readonly pageSize$: BehaviorSubject<number> = new BehaviorSubject(5);
+  private readonly _dataSource: EntityDataSource<Physician> = new EntityDataSource(this._physicianService);
 
   public readonly vm$: Observable<{
-    dataSource$: Observable<MatTableDataSource<Physician>>,
+    dataSource: EntityDataSource<Physician>,
     columnsToDisplay: string[],
-    length: number,
+    length$: Observable<number>,
     pageNumber: number,
     pageSize: number
   }> = combineLatest([this.pageIndex$, this.pageSize$ ])
   .pipe(
     switchMap(([pageIndex,pageSize]) => combineLatest([
-      this._physicianService.getPage({ pageIndex, pageSize }),
       of([
         'firstname',
         'lastname',
@@ -69,16 +44,12 @@ export class PhysicianListComponent implements OnDestroy {
       of(pageSize)  
     ])
     .pipe(
-      map(([physicianPage, columnsToDisplay, pageNumber, pageSize]) => { 
-        this._componentStore.setState({ physicians: physicianPage.entities });
-  
+      map(([columnsToDisplay, pageNumber, pageSize]) => { 
+        this._dataSource.getPage({ pageIndex, pageSize });
         return {
-          dataSource$: this._componentStore.select((state) => ({
-            physicians: state.physicians
-          })).pipe(map(x => new MatTableDataSource(x.physicians))),
-  
+          dataSource: this._dataSource,
           columnsToDisplay,
-          length: physicianPage.length,
+          length$: this._dataSource.length$,
           pageSize,
           pageNumber
         }
@@ -89,7 +60,6 @@ export class PhysicianListComponent implements OnDestroy {
   constructor(
     private readonly _physicianService: PhysicianService,
     private readonly _dialogService: DialogService,
-    private readonly _componentStore: ComponentStore<{ physicians: Physician[] }>
   ) { }
 
   public edit(physician: Physician) {
@@ -98,7 +68,7 @@ export class PhysicianListComponent implements OnDestroy {
     component.saved
     .pipe(
       takeUntil(this._destroyed$),
-      tap(x => this.updatePhysician(x))
+      tap(x => this._dataSource.update(x))
     ).subscribe();
   }
 
@@ -107,19 +77,15 @@ export class PhysicianListComponent implements OnDestroy {
     .saved
     .pipe(
       takeUntil(this._destroyed$),
-      tap(x => this.createPhysician(x))
+      tap(x => this.pageSize$.next(this.pageIndex$.value))
     ).subscribe();
   }
 
   public delete(physician: Physician) {    
-    this.deletePhysician(physician);
     this._physicianService.remove({ physician }).pipe(
-      takeUntil(this._destroyed$) 
+      takeUntil(this._destroyed$),
+      tap(x => this.pageSize$.next(this.pageIndex$.value))
     ).subscribe();
-  }
-
-  handlePage(event$) {
-    this.pageIndex$.next(this.paginator.pageIndex + 1);
   }
   
   ngOnDestroy() {

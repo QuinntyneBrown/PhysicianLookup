@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Physician } from './physician';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PhysicianListComponent } from './physician-list/physician-list.component';
 import { PhysicianPage } from './physician-page';
 
 @Injectable({
@@ -16,6 +15,8 @@ export class PhysicianService {
     @Inject(baseUrl) private _baseUrl: string,
     private _client: HttpClient
   ) { }
+
+  public uniqueIdentifierName: string = "physicianId";
 
   public getNearest(options: {longitude: number, latitude: number}): Observable<Physician[]> {
     return this._client.get<{ physicians: Physician[] }>(`${this._baseUrl}api/physicians/nearest/${options.longitude}/${options.latitude}`)
@@ -61,6 +62,6 @@ export class PhysicianService {
   }
   
   public update(options: { physician: Physician }): Observable<{ physician: Physician }> {
-    return this._client.put<{ physician: Physician }>(`${this._baseUrl}api/physicians/${options.physician.physicianId}`, { physician: options.physician });
+    return this._client.put<{ physician: Physician }>(`${this._baseUrl}api/physicians`, { physician: options.physician });
   }  
 }
