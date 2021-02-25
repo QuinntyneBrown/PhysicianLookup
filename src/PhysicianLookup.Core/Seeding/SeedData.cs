@@ -25,23 +25,19 @@ namespace PhysicianLookup.Core.Seeding
             public static void Seed(PhysicianLookupDbContext context)
             {
                 if(context.Roles.FirstOrDefault(x => x.Name == "Admin") == null)
-                {
-                    var role = new Role
+                {                    
+                    context.Roles.Add(new ()
                     {
                         Name = "Admin"
-                    };
-
-                    context.Roles.Add(role);
+                    });
                 }
 
                 if (context.Roles.FirstOrDefault(x => x.Name == "System") == null)
                 {
-                    var role = new Role
+                    context.Roles.Add(new ()
                     {
                         Name = "System"
-                    };
-
-                    context.Roles.Add(role);
+                    });
                 }
 
                 context.SaveChanges();
@@ -60,7 +56,7 @@ namespace PhysicianLookup.Core.Seeding
                 {
                     var physician = (JObject)token;
 
-                    _ = context.Physicians.Add(new Physician
+                    _ = context.Physicians.Add(new ()
                     {
                         Title = (string)physician["title"],
                         Firstname = (string)physician["firstname"],
@@ -81,6 +77,7 @@ namespace PhysicianLookup.Core.Seeding
                 context.SaveChanges();
             }
         }
+
         internal class UserConfiguration
         {
             public static void Seed(PhysicianLookupDbContext context, IConfiguration configuration)
@@ -92,12 +89,12 @@ namespace PhysicianLookup.Core.Seeding
 
                     if (context.Users.SingleOrDefault(x => x.Username == username) == null)
                     {
-                        user = new User
+                        user = new ()
                         {
                             Username = username,                            
                         };
 
-                        user.UserRoles.Add(new UserRole
+                        user.UserRoles.Add(new ()
                         {
                             RoleId = context.Roles.Single(x => x.Name == "System").RoleId
                         });
