@@ -41,7 +41,8 @@ namespace PhysicianLookup.Domain.Features
 
                 var length = await _context.Physicians.CountAsync();
 
-                var physicians = await query.Page(request.PageIndex, request.PageSize).Select(x => x.ToDto()).ToListAsync();
+                var physicians = await query.Page(request.PageIndex, request.PageSize)
+                    .Select(x => x.ToDto()).ToListAsync();
 
                 return new ()
                 {

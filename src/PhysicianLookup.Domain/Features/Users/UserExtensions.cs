@@ -1,5 +1,4 @@
 using PhysicianLookup.Core.Models;
-using PhysicianLookup.Domain.Features;
 
 namespace PhysicianLookup.Domain.Features
 {
@@ -7,7 +6,7 @@ namespace PhysicianLookup.Domain.Features
     {
         public static UserDto ToDto(this User user)
         {
-            return new UserDto
+            return new ()
             {
                 UserId = user.UserId,
                 Username = user.Username

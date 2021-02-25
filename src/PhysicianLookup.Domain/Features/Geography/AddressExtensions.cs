@@ -6,7 +6,7 @@ namespace PhysicianLookup.Domain.Features
     {
         public static AddressDto ToDto(this Address address)
         {
-            return new AddressDto
+            return new ()
             {
                 Street = address.Street,
                 City = address.City,
